@@ -1,0 +1,231 @@
+#
+#For detailed view of mmWave Radar configuration structure
+#please refer 
+#ti\control\mmwavelink\docs\doxygen\html\index.html
+#
+
+#
+#cascade mode enable
+#
+cascade_enable=0;
+#END
+
+#
+#power on master arguments, please modify if needed.
+#rlClientCbs_t: crcType 0:16Bit/1:32Bit/2:64Bit, ackTimeout
+#
+crcType=1;
+ackTimeout=1000;
+#END
+
+#
+#channel config parameters, please modify if needed.
+#rlChanCfg_t
+#
+channelTx=3;
+channelRx=15;
+cascading=0;
+#END
+
+#
+#ADC out config parameters, please modify if needed.
+#rlAdcOutCfg_t
+#
+adcBits=2;
+adcFormat=2;
+#END
+
+#
+#DATA format config parameters, please modify if needed.
+#rlDevDataFmtCfg_t
+#
+rxChanEn=15;
+adcBitsD=2;
+adcFmt=1;
+iqSwapSel=0;
+chInterleave=0;
+#END
+
+#
+#Low power config Paramters, please modify if needed.
+#rlLowPowerModeCfg_t
+#
+anaCfg=0;
+lpAdcMode=0;
+#END
+
+#
+#Data Path config parameters, please modify if needed
+#rlDevDataPathCfg_t
+#
+intfSel=1;
+transferFmtPkt0=1;
+transferFmtPkt1=0;
+cqConfig=2;
+cq0TransSize=64;
+cq1TransSize=64;
+cq2TransSize=64;
+#END
+
+#
+#LVDS clock config parameters, please modify if needed
+#rlDevDataPathClkCfg_t
+#
+laneClk=1;
+dataRate=1;
+#END
+
+#
+#SET HSI clock parameters, please modify if needed.
+#rlDevHsiClk_t
+#
+hsiClk=9
+#END
+
+#
+#LANE config parameters, please modify if needed.
+#rlDevLaneEnable_t
+#
+laneEn=15;
+#END
+
+#
+#LVDS Lane Config parameters, please modify if needed.
+#rlDevLvdsLaneCfg_t
+#
+laneFmtMap=0;
+laneParamCfg=1;
+#END
+
+#
+#Profile config parameters, please modify if needed.
+#rlProfileCfg_t
+#
+profileId=0;
+startFreqConst=1439117143;
+idleTimeConst=1000;
+adcStartTimeConst=600;
+rampEndTime=6000;
+txOutPowerBackoffCode=0;
+txPhaseShifter=0;
+freqSlopeConst=621;
+txStartTime=0;
+numAdcSamples=256;
+digOutSampleRate=10000;
+hpfCornerFreq1=0;
+hpfCornerFreq2=0;
+txCalibEnCfg=511;
+rxGain=30;
+#END
+
+#
+#Chirp Configuration parameters, please modify if needed.
+#rlChirpCfg_t
+#
+chirpStartIdx=0;
+chirpEndIdx=127;
+profileIdCPCFG=0;
+startFreqVar=0;
+freqSlopeVar=0;
+idleTimeVar=0;
+adcStartTimeVar=0;
+txEnable=1;
+#END
+
+#
+#Frame configuration parameters, please modify if needed.
+#rlFrameCfg_t
+#
+chirpStartIdxFCF=0;
+chirpEndIdxFCF=127;
+frameCount=0;
+loopCount=1;
+periodicity=20000000;
+triggerDelay=0;
+numAdcSamples=512;
+triggerSelect=1;
+#END
+
+#
+#Advance Frame configuration parameters, please modify if needed.
+numOfSubFrames=4;
+forceProfile=0;
+numFrames=100;
+loopBackCfg=0;
+triggerSelect=1;
+frameTrigDelay=0;
+#end
+
+#
+#4th sub Frame configuration parameters, please modify if needed.
+forceProfileIdx=0;
+chirpStartIdxAF=0;
+numOfChirps=1;
+numLoops=8;
+burstPeriodicity=5000000;
+chirpStartIdxOffset=0;
+numOfBurst=1;
+numOfBurstLoops=1;
+subFramePeriodicity=5000000;
+numAdcSamplesAF=256
+numChirpsInDataPacket=1
+#end
+
+#
+#3rd sub Frame configuration parameters, please modify if needed.
+forceProfileIdx=0;
+chirpStartIdxAF=0;
+numOfChirps=1;
+numLoops=8;
+burstPeriodicity=5000000;
+chirpStartIdxOffset=0;
+numOfBurst=1;
+numOfBurstLoops=1;
+subFramePeriodicity=5000000;
+numAdcSamplesAF=256
+numChirpsInDataPacket=1
+#end
+
+#
+#2nd sub Frame configuration parameters, please modify if needed.
+forceProfileIdx=0;
+chirpStartIdxAF=0;
+numOfChirps=1;
+numLoops=8;
+burstPeriodicity=5000000;
+chirpStartIdxOffset=0;
+numOfBurst=1;
+numOfBurstLoops=1;
+subFramePeriodicity=5000000;
+numAdcSamplesAF=256
+numChirpsInDataPacket=1
+#end
+
+#
+#1st sub Frame configuration parameters, please modify if needed.
+forceProfileIdx=0;
+chirpStartIdxAF=0;
+numOfChirps=1;
+numLoops=8;
+burstPeriodicity=5000000;
+chirpStartIdxOffset=0;
+numOfBurst=1;
+numOfBurstLoops=1;
+subFramePeriodicity=5000000;
+numAdcSamplesAF=256
+numChirpsInDataPacket=1
+#end
+
+#
+#Continuous mode config parameters
+#startFreqConst=1435384036;
+#txOutPowerBackoffCode=0;
+#txPhaseShifter=0;
+#digOutSampleRate=10000;
+#hpfCornerFreq1=0;
+#hpfCornerFreq2=0;
+contModeRxGain=30;
+vcoSelect=3388;
+#end
+
+

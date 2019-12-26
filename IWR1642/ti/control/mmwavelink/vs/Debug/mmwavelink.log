@@ -1,0 +1,42 @@
+﻿生成启动时间为 26/12/2019 22:20:43。
+     1>项目“C:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\mmwavelink.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\\..\include /IC:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\\..\source /IC:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\\..\..\..\..\ /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ..\src\rl_controller.c ..\src\rl_device.c ..\src\rl_driver.c ..\src\rl_monitoring.c ..\src\rl_sensor.c
+         rl_sensor.c
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\mmwavelink.h(2310): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_device.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(2967): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(3716): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         rl_monitoring.c
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\mmwavelink.h(2310): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_device.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(2967): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(3716): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         rl_driver.c
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\mmwavelink.h(2310): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_device.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(2967): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(3716): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         rl_device.c
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\mmwavelink.h(2310): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_device.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(2967): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(3716): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         rl_controller.c
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\mmwavelink.h(2310): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_device.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(2967): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\users\zhang\documents\zsl4ges\zeroshot_wwwave_cli\mmwavescript\iwr1642\ti\control\mmwavelink\include\rl_sensor.h(3716): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         正在生成代码...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\\Debug\mmwavelink.lib" /NOLOGO Debug\rl_controller.obj
+         Debug\rl_device.obj
+         Debug\rl_driver.obj
+         Debug\rl_monitoring.obj
+         Debug\rl_sensor.obj
+         mmwavelink.vcxproj -> C:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\\Debug\mmwavelink.lib
+     1>已完成生成项目“C:\Users\zhang\Documents\ZSL4Ges\Zeroshot_wwWave_CLI\mmWaveScript\IWR1642\ti\control\mmwavelink\vs\mmwavelink.vcxproj”(Rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.07
