@@ -1,1 +1,0 @@
-[23:35:51:326][VER]mmWaveLink Studio Version: 1.1.0.0.28.3.18 

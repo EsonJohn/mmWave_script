@@ -88,9 +88,6 @@
     <ClCompile Include="mmw_config.c" />
     <ClCompile Include="mmw_example.c" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="mmwaveconfig.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
