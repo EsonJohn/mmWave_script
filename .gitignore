@@ -2,6 +2,7 @@
 CLI_LogFile.txt
 ./DCA1000/Pre-build/Data/
 mmwaveli.*.tlog
+adc_data_*.csv
 
 *.exp
 vc120.idb

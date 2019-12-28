@@ -20,6 +20,7 @@ ackTimeout=1000;
 
 #
 #channel config parameters, please modify if needed.
+# binary format, e.g. 3=(11), 15=(1111)
 #rlChanCfg_t
 #
 channelTx=3;
@@ -31,12 +32,16 @@ cascading=0;
 #ADC out config parameters, please modify if needed.
 #rlAdcOutCfg_t
 #
-adcBits=2;
-adcFormat=2;
+adcBits=16;
+adcFormat=1;
 #END
 
 #
 #DATA format config parameters, please modify if needed.
+# rxChanEn - 15=(1111)
+# adcBitsD - 0(12 Bits), 1(14 Bits), 2(16 Bits)
+# adcFmt - 0(Real), 1(Complex), 2(Complex with Image band), 3(Pseudo Real)
+# iqSwapSel - 0 I First, 1 Q First
 #rlDevDataFmtCfg_t
 #
 rxChanEn=15;
@@ -48,11 +53,14 @@ chInterleave=0;
 
 #
 #Low power config Paramters, please modify if needed.
+# lpAdcMode - 0(Regular) 1(LowPower)
 #rlLowPowerModeCfg_t
 #
 anaCfg=0;
-lpAdcMode=0;
+lpAdcMode=1;
 #END
+
+######################################################
 
 #
 #Data Path config parameters, please modify if needed
@@ -96,6 +104,8 @@ laneEn=15;
 laneFmtMap=0;
 laneParamCfg=1;
 #END
+
+######################################################
 
 #
 #Profile config parameters, please modify if needed.

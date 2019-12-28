@@ -76,7 +76,7 @@
 #define MAX_GET_CHIRP_CONFIG_IDX              14
 
 /* To enable TX2 */
-#define ENABLE_TX2                             1
+#define ENABLE_TX2                             0
 
 /******************************************************************************
 * GLOBAL VARIABLES/DATA-TYPES DEFINITIONS
@@ -768,10 +768,11 @@ int MMWL_ldoBypassConfig(unsigned char deviceMap)
     int retVal = RL_RET_CODE_OK;
     rlRfLdoBypassCfg_t rfLdoBypassCfgArgs = { 0 };
 
-    if (gLinkBypassLdo == TRUE)
+	// Eson: Set always FALSE because LDO may damage EVM besides 1432.
+    /*if (gLinkBypassLdo == TRUE)
     {
         rfLdoBypassCfgArgs.ldoBypassEnable = 1;
-    }
+    }*/
 
     printf("Calling rlRfSetLdoBypassConfig With Bypass [%d] \n",
         rfLdoBypassCfgArgs.ldoBypassEnable);
@@ -834,7 +835,7 @@ int MMWL_channelConfig(unsigned char deviceMap,
     rfChanCfgArgs.txChannelEn |= (1 << 2); // Enable TX2
 #endif
 
-    printf("Calling rlSetChannelConfig With [%d]Rx and [%d]Tx Channel Enabled \n",
+    printf("Calling rlSetChannelConfig With b[%d]Rx and b[%d]Tx Channel Enabled \n",
            rfChanCfgArgs.rxChannelEn, rfChanCfgArgs.txChannelEn);
 
     retVal = rlSetChannelConfig(deviceMap, &rfChanCfgArgs);
@@ -931,8 +932,9 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     }
     else
     {
-        printf("Channel Configuration success for deviceMap %u\n\n", deviceMap);
+        printf(">>>>Channel Configuration success for deviceMap %u\n\n", deviceMap);
     }
+
     /* ADC out data format configuration */
     retVal = MMWL_adcOutConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
@@ -943,7 +945,7 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     }
     else
     {
-        printf("AdcOut Configuration success for deviceMap %u\n\n", deviceMap);
+        printf(">>>>AdcOut Configuration success for deviceMap %u\n\n", deviceMap);
     }
 
     /* LDO bypass configuration */
@@ -956,7 +958,7 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     }
     else
     {
-        printf("LDO Bypass Configuration success for deviceMap %u\n\n", deviceMap);
+        printf(">>>>LDO Bypass Configuration success for deviceMap %u\n\n", deviceMap);
     }
 
     /* Data format configuration */
@@ -969,7 +971,7 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     }
     else
     {
-        printf("Data format Configuration success for deviceMap %u\n", deviceMap);
+        printf(">>>>Data format Configuration success for deviceMap %u\n", deviceMap);
     }
 
     /* low power configuration */
@@ -982,7 +984,7 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     }
     else
     {
-        printf("Low Power Configuration success for deviceMap %u \n", deviceMap);
+        printf(">>>>Low Power Configuration success for deviceMap %u \n", deviceMap);
     }
 
     /* Async event direction and control configuration for RadarSS */
@@ -995,7 +997,7 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     }
     else
     {
-        printf("AsyncEvent Configuration success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>AsyncEvent Configuration success for deviceMap %u \n\n", deviceMap);
     }
     return retVal;
 }
@@ -2158,7 +2160,7 @@ int MMWL_App()
     }
     else
     {
-        printf(">>>>Basic/Static configuration success for deviceMap %u \n",
+        printf(">>>>Basic/Static configuration success for deviceMap %u \n\n",
                 deviceMap);
     }
 
@@ -2167,6 +2169,7 @@ int MMWL_App()
     mmWave Front end performs calibration and once calibration is complete, it
     notifies the application using asynchronous event
     */
+	printf("==========================RF Initilization============================\n");
     retVal = MMWL_rfInit(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
@@ -2176,9 +2179,8 @@ int MMWL_App()
     }
     else
     {
-        printf(">>>>RF Initialization/Calibration successful for deviceMap %u \n", deviceMap);
+        printf(">>>>RF Initialization/Calibration successful for deviceMap %u \n\n", deviceMap);
     }
-    printf("======================================================================\n\n");
 
     /* mmwave sensor provides a feature to do the factory calibration, where application needs
        to send already stored calibration data to mmwave device. In this flow device will use 
