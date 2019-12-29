@@ -675,24 +675,24 @@ SINT32 ValidateJsonFileData_Rec(SINT8 *configFile, UINT16 u16CmdCode)
             return CLI_JSON_REC_INVALID_FILE_BASE_PATH_ERR;
         }
 
-        if(!node.isMember("filePrefix"))
-        {
-            sprintf(s8DebugMsg, "Invalid JSON config file - filePrefix node is missing. [error %d]", 
-								CLI_JSON_REC_FILE_PREFIX_NODE_ERR);
-            WRITE_TO_CONSOLE_REC(s8DebugMsg);
-            s16Status = CLI_JSON_REC_FILE_PREFIX_NODE_ERR;
-            return s16Status;
-        }
-        strcpy(gsStartRecConfigMode.s8FilePrefix,
-               root["captureConfig"]["filePrefix"].asString().c_str());
-        if(strcmp(gsStartRecConfigMode.s8FilePrefix, "") == 0)
-        {
-            sprintf(s8DebugMsg, "FilePrefix value is empty. [error %d]", 
-								CLI_JSON_REC_INVALID_FILE_PREFIX_ERR);
-            WRITE_TO_CONSOLE_REC(s8DebugMsg);
-            s16Status = CLI_JSON_REC_INVALID_FILE_PREFIX_ERR;
-            return s16Status;
-        }
+        // if(!node.isMember("filePrefix"))
+        // {
+        //     sprintf(s8DebugMsg, "Invalid JSON config file - filePrefix node is missing. [error %d]", 
+		// 						CLI_JSON_REC_FILE_PREFIX_NODE_ERR);
+        //     WRITE_TO_CONSOLE_REC(s8DebugMsg);
+        //     s16Status = CLI_JSON_REC_FILE_PREFIX_NODE_ERR;
+        //     return s16Status;
+        // }
+        // strcpy(gsStartRecConfigMode.s8FilePrefix,
+        //        root["captureConfig"]["filePrefix"].asString().c_str());
+        // if(strcmp(gsStartRecConfigMode.s8FilePrefix, "") == 0)
+        // {
+        //     sprintf(s8DebugMsg, "FilePrefix value is empty. [error %d]", 
+		// 						CLI_JSON_REC_INVALID_FILE_PREFIX_ERR);
+        //     WRITE_TO_CONSOLE_REC(s8DebugMsg);
+        //     s16Status = CLI_JSON_REC_INVALID_FILE_PREFIX_ERR;
+        //     return s16Status;
+        // }
 
         if(!node.isMember("maxRecFileSize_MB"))
         {
@@ -1003,6 +1003,9 @@ SINT32 main(SINT32 argc, SINT8* argv[])
     /** Command line argument  2 - JSON file name */
     SINT8 s8CommandArg[MAX_NAME_LEN];
 
+    /** Command line argument  3 - file prefix */
+    SINT8 file_prefix[MAX_NAME_LEN];
+
     SINT8 s8DebugMsg[MAX_NAME_LEN];
     SINT32 s32CliStatus = SUCCESS_STATUS;
     SINT8 s8CliVersion[MAX_VERSION_BUF_LEN];
@@ -1012,27 +1015,41 @@ SINT32 main(SINT32 argc, SINT8* argv[])
     osalObj_Rec.InitEvent(&sgnRecStopWaitEvent);
     osalObj_Rec.InitEvent(&sgnInlineStsUpdateWaitEvent);
 
-    if(argc < 2)
-    {
-        ListOfCmds_Rec();
-#ifndef CLI_TESTING_MODE
-        return CLI_NO_ARG_ERR;
-#endif
-    }
-    else
-    {
-        strcpy(s8Command, argv[1]);
-        if(argc > 2)
-            strcpy(s8CommandArg, argv[2]);
-        if(argc > 3)
-        {
-            if(strcmp(argv[3], CMD_QUIET_MODE_CLI_APP) == 0)
-                gbCliQuietMode = true;
-            else
-                gbCliQuietMode = false;
-        }
-    }
+//     if(argc < 2)
+//     {
+//         ListOfCmds_Rec();
+// #ifndef CLI_TESTING_MODE
+//         return CLI_NO_ARG_ERR;
+// #endif
+//     }
+//     else
+//     {
+//         strcpy(s8Command, argv[1]);
+//         if(argc > 2)
+//             strcpy(s8CommandArg, argv[2]);
+//         if(argc > 3)
+//         {
+//             if(strcmp(argv[3], CMD_QUIET_MODE_CLI_APP) == 0)
+//                 gbCliQuietMode = true;
+//             else
+//                 gbCliQuietMode = false;
+//         }
+//     }
 
+        if(argc != 4 || strcmp(argv[1], "start_record"))
+        {
+            printf("\nParameters error!\n\
+                  Program calling format:\n\
+                  DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]\n\
+            e.g., DCA1000EVM_CLI_Record.exe start_record cf.json Eason-1-1-1\n");
+            return -1;
+        }
+        else
+        {
+            strcpy(s8Command, argv[1]);
+            strcpy(s8CommandArg, argv[2]);
+            strcpy(file_prefix, argv[3]);
+        }
 
 #ifdef CLI_TESTING_MODE
     SINT8 s8Version[MAX_VERSION_BUF_LEN];
@@ -1194,6 +1211,10 @@ SINT32 main(SINT32 argc, SINT8* argv[])
                                   STS_CLI_REC_PROC_START_INIT);
 
     bStopCmdSent = false;
+
+    // ====================================================
+    // Set file prefix
+    strcpy(gsStartRecConfigMode.s8FilePrefix, file_prefix);
 
     /** API Call - Start Record                                     */
     s32CliStatus = StartRecordData(gsStartRecConfigMode);
