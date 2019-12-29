@@ -2039,6 +2039,53 @@ int MMWL_lowPowerConfig(unsigned char deviceMap)
     return retVal;
 }
 
+int triggerSensorLoop(unsigned char deviceMap)
+{
+	char key = '\0';
+	while (TRUE)
+	{
+		printf("\n========================Press Enter to Start, press anykey+enter to exit==============================\n\n");
+		key = getchar();
+		if (key != 10){
+			MMWL_sensorStop(deviceMap);	// Stop sensor anyway
+			return 1;
+		}
+		int retVal = MMWL_sensorStart(deviceMap);
+		if (retVal != RL_RET_CODE_OK)
+		{
+			printf("Sensor Start failed with error code %d \n\n", retVal);
+			return -1;
+		}
+		else
+		{
+			printf(">>>>Sensor Start successful \n\n");
+		}
+
+		printf("\n========================Press Enter to Stop, press anykey+Enter to exit===========================\n\n");
+		key = getchar();
+		if (key != 10){
+			MMWL_sensorStop(deviceMap);	// Stop sensor anyway
+			return 1;
+		}
+		retVal = MMWL_sensorStop(deviceMap);
+		if (retVal != RL_RET_CODE_OK)
+		{
+			if (retVal == RL_RET_CODE_FRAME_ALREADY_ENDED)
+			{
+				printf("Frame is already stopped when sensorStop CMD was issued\n");
+			}
+			else
+			{
+				printf("Sensor Stop failed with error code %d \n\n", retVal);
+				return -1;
+			}
+		}
+		else
+		{
+			printf(">>>>Sensor Stop successful \n\n");
+		}
+	}	
+}
 
 /** @fn int MMWL_App()
 *
@@ -2050,8 +2097,8 @@ int MMWL_lowPowerConfig(unsigned char deviceMap)
 */
 int MMWL_App()
 {
-    int retVal = RL_RET_CODE_OK;
-    unsigned char deviceMap = RL_DEVICE_MAP_CASCADED_1;
+	int retVal = RL_RET_CODE_OK;
+	unsigned char deviceMap = RL_DEVICE_MAP_CASCADED_1;
 
 	printf("\n=============================Open Config File===========================\n\n");
 
@@ -2369,181 +2416,27 @@ int MMWL_App()
         }
     }*/
 
-	printf("\n========================Start Sensor==============================\n\n");
-
-    /*  \subsection     api_sequence12     Seq 12 - Start mmWave Radar Sensor
-    This will trigger the mmWave Front to start transmitting FMCW signal. Raw ADC samples
-    would be received from Digital front end. For AWR1243, if high speed interface is
-    configured, RAW ADC data would be transmitted over CSI2/LVDS. On xWR1443/xWR1642, it can
-    be processed using HW accelerator or DSP
-    */
-    retVal = MMWL_sensorStart(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("Sensor Start failed with error code %d \n\n", retVal);
-        return -1;
-    }
-    else
-    {
-        printf(">>>>Sensor Start successful \n\n");
-    }
-
-    //if (gLinkDynProfileTest == TRUE)
-    //{
-    //    /* Host can update profile configurations dynamically while frame is ongoing.
-    //       This test has been added in this example to demostrate dynamic profile update feature
-    //       of mmWave sensor device, developer must check the validity of parameters at the system
-    //       level before implementing the application. */
-
-    //    /* wait for few frames worth of time before updating profile config */
-    //    osiSleep(3*framePeriodicity);
-
-    //    /* update few of existing profile parameters */
-    //    profileCfgArgs[0].rxGain = 222;
-    //    profileCfgArgs[0].pfCalLutUpdate = 0x1; /* bit0: 1, bit1: 0 */
-    //    profileCfgArgs[0].hpfCornerFreq1 = 1;
-    //    profileCfgArgs[0].hpfCornerFreq2 = 1;
-    //    profileCfgArgs[0].txStartTime = 2;
-    //    profileCfgArgs[0].rampEndTime = 7000;
-
-    //    /* Dynamically configure 1 profile (max 4 profiles) while frame is ongoing */
-    //    retVal = rlSetProfileConfig(deviceMap, 1U, &profileCfgArgs[0U]);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("Dynamic Profile Configuration failed for deviceMap %u with error code %d \n\n",
-    //                deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    else
-    //    {
-    //        printf(">>>>Dynamic Profile Configuration success for deviceMap %u \n\n", deviceMap);
-    //    }
-
-    //    /* wait for few frames worth of time before reading profile config.
-    //       Dynamic profile configuration will come in effect during next frame, so wait for that time
-    //       before reading back profile config */
-    //    osiSleep(2*framePeriodicity);
-
-    //    /* To verify that profile configuration parameters are applied to device while frame is ongoing,
-    //       read back profile configurationn from device */
-    //    retVal = rlGetProfileConfig(deviceMap, 0, &profileCfgArgs[1]);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("Dynamic Get Profile Configuration failed for deviceMap %u with error code %d \n\n",
-    //                deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    else
-    //    {
-    //        printf(">>>>Dynamic Get Profile Configuration success for deviceMap %u \n\n", deviceMap);
-    //        /* compare the read back profile configuration parameters to lastly configured parameters */
-    //        if ((profileCfgArgs[0].rxGain != profileCfgArgs[1].rxGain) || \
-    //            (profileCfgArgs[0].hpfCornerFreq1 != profileCfgArgs[1].hpfCornerFreq1) || \
-    //            (profileCfgArgs[0].hpfCornerFreq2 != profileCfgArgs[1].hpfCornerFreq2) || \
-    //            (profileCfgArgs[0].txStartTime != profileCfgArgs[1].txStartTime) || \
-    //            (profileCfgArgs[0].rampEndTime != profileCfgArgs[1].rampEndTime))
-    //            printf("Dynamic Profile Config mismatched !!! \n\n");
-    //        else
-    //            printf("Dynamic profile cfg matched \n\n");
-    //    }
-    //}
-
-    //if (gLinkDynChirpTest == TRUE)
-    //{
-    //    /* wait for few frames to elapse before invoking Dynamic chirp config API to update
-    //       new chirp config to come in effect for next frames */
-
-    //    /* wait for few frames worth of time */
-    //    osiSleep(3*framePeriodicity);
-
-    //    retVal = MMWL_setDynChirpConfig(deviceMap);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("Dynamic Chirp config failed for deviceMap %u with error code %d \n\n",
-    //            deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    else
-    //    {
-    //        printf(">>>>Dynamic Chirp config successful for deviceMap %u \n\n", deviceMap);
-    //    }
-    //    printf("======================================================================\n\n");
-
-    //    retVal = MMWL_dynChirpEnable(deviceMap);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("Dynamic Chirp Enable failed for deviceMap %u with error code %d \n\n",
-    //            deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    else
-    //    {
-    //        printf(">>>>Dynamic Chirp Enable successful for deviceMap %u \n\n", deviceMap);
-    //    }
-    //    printf("======================================================================\n\n");
-
-    //    /* wait for another few mSec so that dynamic chirp come in effect,
-    //     If above API reached to BSS at the end of frame then new chirp config will come in effect
-    //     during next frame only */
-    //    osiSleep(2*framePeriodicity);
-
-    //    /* read back Chirp config, which should be same as configured in dynChirpConfig for same segment */
-    //    retVal = MMWL_getDynChirpConfig(deviceMap);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("GetChirp Configuration failed for deviceMap %u with error %d \n\n",
-    //                deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    else
-    //    {
-    //        printf(">>>>GetChirp Configuration success for deviceMap %u \n\n", deviceMap);
-    //    }
-    //}
-
-    /* @Note - all these SLeep is added in this demo application to demonstrate mmWave sensor features,
-                user can change these sleep time values as per their requirement */
-
-    /* wait for 10 frames worth of time */
-    osiSleep(10*framePeriodicity);
-
-	printf("\n=============================Stop Sensor===========================\n\n");
-
-    /* Stop the frame */
-    retVal = MMWL_sensorStop(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        if (retVal == RL_RET_CODE_FRAME_ALREADY_ENDED)
-        {
-            printf("Frame is already stopped when sensorStop CMD was issued\n");
-        }
-        else
-        {
-            printf("Sensor Stop failed with error code %d \n\n", retVal);
-            return -1;
-        }
-    }
-    else
-    {
-        printf(">>>>Sensor Stop successful \n\n");
-    }
 
 	printf("\n=============================GPAdc Config===========================\n\n");
 
-    /* Note- Before Calling this API user must feed in input signal to device's pins,
-    else device will return garbage data in GPAdc measurement over Async event.
-    Measurement data is stored in 'rcvGpAdcData' structure after this API call. */
-    retVal = MMWL_gpadcMeasConfig(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("GPAdc measurement API failed with error code %d \n\n", retVal);
-        return -1;
-    }
-    else
-    {
-        printf(">>>>GPAdc measurement API success\n\n");
-    }
-	
+	/* Note- Before Calling this API user must feed in input signal to device's pins,
+	else device will return garbage data in GPAdc measurement over Async event.
+	Measurement data is stored in 'rcvGpAdcData' structure after this API call. */
+	retVal = MMWL_gpadcMeasConfig(deviceMap);
+	if (retVal != RL_RET_CODE_OK)
+	{
+		printf("GPAdc measurement API failed with error code %d \n\n", retVal);
+		return -1;
+	}
+	else
+	{
+		printf(">>>>GPAdc measurement API success\n\n");
+	}
+
+	// ========================================
+	triggerSensorLoop(deviceMap);
+	// ========================================
+
 	printf("\n=============================Device Power Off===========================\n\n");
 
     /* Switch off the device */
@@ -2592,4 +2485,5 @@ void main(void)
     /* Wait for Enter click */
     getchar();
     printf("=========== mmWaveLink Example Application: Exit =========== \n");
+
 }
