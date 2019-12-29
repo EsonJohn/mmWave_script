@@ -267,19 +267,16 @@ void MMWL_readChannelConfig(rlChanCfg_t *rfChanCfgArgs,
 
 		if (strcmp(name, "channelTx") == 0){
 			rfChanCfgArgs->txChannelEn = atoi(value);
-			printf("%s:%d\n", name, atoi(value));
 		}
 
 		if (strcmp(name, "channelRx") == 0)
 		{
 			rfChanCfgArgs->rxChannelEn = atoi(value);
-			printf("%s:%d\n", name, atoi(value));
 		}
 
         if (strcmp(name, "cascading") == 0)
         {
 			rfChanCfgArgs->cascading = atoi(value);
-			printf("%s:%d\n", name, atoi(value));
             readAllParams = 1;
         }
     }

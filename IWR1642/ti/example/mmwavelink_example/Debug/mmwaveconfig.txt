@@ -156,6 +156,8 @@ numAdcSamples=512;
 triggerSelect=1;
 #END
 
+######################################################
+
 #
 #Advance Frame configuration parameters, please modify if needed.
 numOfSubFrames=4;

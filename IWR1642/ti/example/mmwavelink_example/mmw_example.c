@@ -321,7 +321,7 @@ void MMWL_asyncEventHandler(rlUInt8_t deviceIndex, rlUInt16_t sbId,
 /* Requirements :  */
 rlComIfHdl_t MMWL_spiOpen(unsigned char deviceIndex, unsigned int flags)
 {
-    printf("rlComIfOpen Callback Called for Device Index [%d]\n", deviceIndex);
+    printf("rlComIfOpen Callback Called for Device [%d]\n", deviceIndex);
     mmwl_devHdl = rlsSpiOpen(&deviceIndex, flags);
     return mmwl_devHdl;
 }
@@ -340,7 +340,7 @@ int MMWL_enableDevice(unsigned char deviceIndex)
 {
     int retVal = RL_RET_CODE_OK;
     /* Enable device in Functional Mode (SOP-4) */
-    printf("rlDeviceEnable Callback is called by mmWaveLink for Device Index [%d]\n", deviceIndex);
+    printf("rlDeviceEnable Callback is called by mmWaveLink for Device [%d]\n", deviceIndex);
     return rlsEnableDevice(deviceIndex);
 }
 
@@ -356,7 +356,7 @@ int MMWL_enableDevice(unsigned char deviceIndex)
 */
 int MMWL_disableDevice(unsigned char deviceIndex)
 {
-    printf("rlDeviceDisable Callback is called by mmWaveLink for Device Index [%d]\n", deviceIndex);
+    printf("rlDeviceDisable Callback is called by mmWaveLink for Device [%d]\n", deviceIndex);
     return rlsDisableDevice(deviceIndex);
 }
 
@@ -666,8 +666,7 @@ int MMWL_firmwareDownload(unsigned char deviceMap)
     int retVal = RL_RET_CODE_OK, timeOutCnt = 0;
 
     /* Meta Image download */
-    printf("Meta Image download started for deviceMap %u\n",
-        deviceMap);
+    printf("Meta Image download started");
     retVal = MMWL_fileDownload(deviceMap, MMWL_META_IMG_FILE_SIZE);
     printf("Meta Image download complete ret = %d\n", retVal);
 
@@ -926,78 +925,76 @@ int MMWL_basicConfiguration(unsigned char deviceMap, unsigned int cascade)
     retVal = MMWL_channelConfig(deviceMap, cascade);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Channel Config failed for deviceMap %u with error code %d\n\n",
-                deviceMap, retVal);
+        printf("Channel Config failed with error code %d\n\n", retVal);
         return -1;
     }
     else
     {
-        printf(">>>>Channel Configuration success for deviceMap %u\n\n", deviceMap);
+        printf(">>>>Channel Configuration success\n\n");
     }
 
     /* ADC out data format configuration */
     retVal = MMWL_adcOutConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("AdcOut Config failed for deviceMap %u with error code %d\n\n",
-                deviceMap, retVal);
+        printf("AdcOut Config failed with error code\n\n", retVal);
         return -1;
     }
     else
     {
-        printf(">>>>AdcOut Configuration success for deviceMap %u\n\n", deviceMap);
+        printf(">>>>AdcOut Configuration success\n\n");
     }
 
     /* LDO bypass configuration */
     retVal = MMWL_ldoBypassConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("LDO Bypass Config failed for deviceMap %u with error code %d\n\n",
+        printf("LDO Bypass Config failed with error code\n\n",
             deviceMap, retVal);
         return -1;
     }
     else
     {
-        printf(">>>>LDO Bypass Configuration success for deviceMap %u\n\n", deviceMap);
+        printf(">>>>LDO Bypass Configuration success\n\n");
     }
 
     /* Data format configuration */
     retVal = MMWL_dataFmtConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Data format Configuration failed for deviceMap %u with error code %d\n",
+        printf("Data format Configuration failed with error code\n",
                 deviceMap, retVal);
         return -1;
     }
     else
     {
-        printf(">>>>Data format Configuration success for deviceMap %u\n", deviceMap);
+        printf(">>>>Data format Configuration success\n");
     }
 
     /* low power configuration */
     retVal = MMWL_lowPowerConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Low Power Configuration failed for deviceMap %u with error %d \n",
+        printf("Low Power Configuration failed %u with error\n",
                 deviceMap, retVal);
         return -1;
     }
     else
     {
-        printf(">>>>Low Power Configuration success for deviceMap %u \n", deviceMap);
+        printf(">>>>Low Power Configuration succes \n");
     }
 
     /* Async event direction and control configuration for RadarSS */
     retVal = MMWL_setAsyncEventDir(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("AsyncEvent Configuration failed for deviceMap %u with error code %d \n\n",
+        printf("AsyncEvent Configuration failed with error code \n\n",
                 deviceMap, retVal);
         return -1;
     }
     else
     {
-        printf(">>>>AsyncEvent Configuration success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>AsyncEvent Configuration success \n\n");
     }
     return retVal;
 }
@@ -1025,7 +1022,7 @@ int MMWL_rfInit(unsigned char deviceMap)
     retVal = rlRfInitCalibConfig(deviceMap, &rfCalibCfgArgs);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("RF calib configuration failed for deviceMap %u with error code %d \n\n",
+        printf("RF calib configuration failed with error code\n\n",
             deviceMap, retVal);
         return -1;
     }
@@ -1073,8 +1070,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     retVal = MMWL_powerOnMaster(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("mmWave Device Power on failed for deviceMap %u with error %d \n\n",
-            deviceMap, retVal);
+        printf("mmWave Device Power on failed with error %d \n\n", retVal);
         return -1;
     }
 #if (FIRMWARE_DOWNLOAD)
@@ -1082,8 +1078,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     retVal = MMWL_firmwareDownload(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Firmware update failed for deviceMap %u with error %d \n",
-            deviceMap, retVal);
+        printf("Firmware update failed with error %d \n", retVal);
         return -1;
     }
 #endif
@@ -1091,8 +1086,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     //retVal = MMWL_setDeviceCrcType(deviceMap);
     //if (retVal != RL_RET_CODE_OK)
     //{
-    //    printf("CRC Type set for MasterSS failed for deviceMap %u with error code %d \n\n",
-    //        deviceMap, retVal);
+    //    printf("CRC Type set for MasterSS failed with error code %d \n\n", retVal);
     //    return -1;
     //}
     ///* Power on radarss */
@@ -1107,8 +1101,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     retVal = MMWL_basicConfiguration(deviceMap, 0);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Basic/Static configuration failed for deviceMap %u with error %d \n",
-            deviceMap, retVal);
+        printf("Basic/Static configuration failed with error %d \n", retVal);
         return -1;
     }
     /* Disble all the calibrations as Host has already stored the calibration data from
@@ -1116,8 +1109,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     retVal = rlRfInitCalibConfig(deviceMap, &rfCalibCfgArgs);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("RF calib configuration failed for deviceMap %u with error code %d \n\n",
-            deviceMap, retVal);
+        printf("RF calib configuration failed with error code %d \n\n", retVal);
         return -1;
 
     }
@@ -1140,8 +1132,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     mmwl_bRfInitComp = 0;
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Calibration data re-store failed for deviceMap %u with error code %d\n\n",
-            deviceMap, retVal);
+        printf("Calibration data re-store failed with error code %d\n\n", retVal);
         return -1;
     }
     /* Invoke this API when device will use the above sent calibration data and skip 
@@ -1161,8 +1152,7 @@ int MMWL_calibStoreRestore(unsigned char deviceMap)
     mmwl_bRfInitComp = 0;
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("RF Initialization/Calibration failed for deviceMap %u with error code %d \n\n",
-            deviceMap, retVal);
+        printf("RF Initialization/Calibration failed with error code %d \n\n", retVal);
         return -1;
     }
     return 0;
@@ -1253,8 +1243,7 @@ int MMWL_chirpConfig(unsigned char deviceMap)
                               setChirpCfgArgs[0].chirpStartIdx + MAX_GET_CHIRP_CONFIG_IDX, &getChirpCfgArgs[0]);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("GetChirp Configuration failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("GetChirp Configuration failed with error %d \n\n", retVal);
     }
     else
     {
@@ -1668,25 +1657,23 @@ int MMWL_hsiLaneConfig(unsigned char deviceMap)
     retVal = MMWL_laneConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("LaneConfig failed for deviceMap %u with error code %d\n",
-                deviceMap, retVal);
+        printf("LaneConfig failed with error code %d\n", retVal);
         return -1;
     }
     else
     {
-        printf("LaneConfig success for deviceMap %u\n", deviceMap);
+        printf("LaneConfig success\n");
     }
     /*LVDS lane configuration*/
     retVal = MMWL_lvdsLaneConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("LvdsLaneConfig failed for deviceMap %u with error code %d\n",
-                deviceMap, retVal);
+        printf("LvdsLaneConfig failed with error code %d\n", retVal);
         return -1;
     }
     else
     {
-        printf("LvdsLaneConfig success for deviceMap %u\n", deviceMap);
+        printf("LvdsLaneConfig success\n");
     }
     return retVal;
 }
@@ -1761,26 +1748,24 @@ int MMWL_hsiClockConfig(unsigned char deviceMap)
     retVal = MMWL_hsiDataRateConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("LvdsClkConfig failed for deviceMap %u with error code %d\n\n",
-                deviceMap, retVal);
+        printf("LvdsClkConfig failed with error code %d\n\n", retVal);
         return -1;
     }
     else
     {
-        printf("MMWL_hsiDataRateConfig success for deviceMap %u\n\n", deviceMap);
+        printf("MMWL_hsiDataRateConfig success\n\n");
     }
 
     /*set high speed clock configuration*/
     retVal = MMWL_setHsiClock(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("MMWL_setHsiClock failed for deviceMap %u with error code %d\n\n",
-                deviceMap, retVal);
+        printf("MMWL_setHsiClock failed with error code %d\n\n", retVal);
         return -1;
     }
     else
     {
-        printf("MMWL_setHsiClock success for deviceMap %u\n\n", deviceMap);
+        printf("MMWL_setHsiClock success\n\n");
     }
 
     return retVal;
@@ -2068,6 +2053,8 @@ int MMWL_App()
     int retVal = RL_RET_CODE_OK;
     unsigned char deviceMap = RL_DEVICE_MAP_CASCADED_1;
 
+	printf("\n=============================Open Config File===========================\n\n");
+
     retVal = MMWL_openConfigFile();
     if (retVal != RL_RET_CODE_OK)
     {
@@ -2079,6 +2066,8 @@ int MMWL_App()
 		printf(">>>>success to Open configuration file\n");
 	}
 
+	printf("\n=============================Device Power On===========================\n\n");
+
     /*  \subsection     api_sequence1     Seq 1 - Call Power ON API
     The mmWaveLink driver initializes the internal components, creates Mutex/Semaphore,
     initializes buffers, register interrupts, bring mmWave front end out of reset.
@@ -2086,15 +2075,15 @@ int MMWL_App()
     retVal = MMWL_powerOnMaster(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("mmWave Device Power on failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("mmWave Device Power on failed with error %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf(">>>>mmWave Device Power on success for deviceMap %u \n\n",
-                deviceMap);
+        printf(">>>>mmWave Device Power on success \n\n");
     }
+
+	printf("\n=============================Enable RF===========================\n\n");
 
     /*  \subsection     api_sequence2     Seq 2 - Download FIrmware/patch (Optional)
     The mmWave device firmware is ROMed and also can be stored in External Flash. This
@@ -2106,14 +2095,12 @@ int MMWL_App()
     retVal = MMWL_firmwareDownload(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Firmware update failed for deviceMap %u with error %d \n",
-                deviceMap, retVal);
+        printf("Firmware update failed with error %d \n", retVal);
         return -1;
     }
     else
     {
-        printf("Firmware update successful for deviceMap %u \n",
-                deviceMap);
+        printf("Firmware update successful \n");
     }
     printf("=====================================================================\n");
 #endif
@@ -2137,31 +2124,28 @@ int MMWL_App()
     retVal = MMWL_rfEnable(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Radar/RF subsystem Power up failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("Radar/RF subsystem Power up failed with error %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf(">>>>Radar/RF subsystem Power up successful for deviceMap %u \n\n", deviceMap);
+        printf(">>>>Radar/RF subsystem Power up success \n\n");
     }
 
     /*  \subsection     api_sequence4     Seq 4 - Basic/Static Configuration
     The mmWave Front end needs to be configured for mmWave Radar operations. basic
     configuration includes Rx/Tx channel configuration, ADC configuration etc
     */
-    printf("======================Basic/Static Configuration======================\n");
+    printf("\n======================Basic/Static Configuration======================\n");
     retVal = MMWL_basicConfiguration(deviceMap, 0);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Basic/Static configuration failed for deviceMap %u with error %d \n",
-                deviceMap, retVal);
+        printf("Basic/Static configuration failed with error %d \n", retVal);
         return -1;
     }
     else
     {
-        printf(">>>>Basic/Static configuration success for deviceMap %u \n\n",
-                deviceMap);
+        printf(">>>>Basic/Static configuration success \n\n");
     }
 
     /*  \subsection     api_sequence5     Seq 5 - Initializes the mmWave Front end
@@ -2169,17 +2153,16 @@ int MMWL_App()
     mmWave Front end performs calibration and once calibration is complete, it
     notifies the application using asynchronous event
     */
-	printf("==========================RF Initilization============================\n");
+	printf("\n==========================RF Initilization============================\n");
     retVal = MMWL_rfInit(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("RF Initialization/Calibration failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
+        printf("RF Initialization/Calibration failed with error code %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf(">>>>RF Initialization/Calibration successful for deviceMap %u \n\n", deviceMap);
+        printf(">>>>RF Initialization/Calibration successful\n\n");
     }
 
     /* mmwave sensor provides a feature to do the factory calibration, where application needs
@@ -2190,45 +2173,45 @@ int MMWL_App()
        In this application, user needs to set this flag to run this test. This code flow is provided 
        as a reference which Host can implement.
        */
-    if (gLinkCalibStoreRestoreTest == TRUE)
-    {
-        /* Host needs to invoke this API to get the calibration data from the device while device
-           has done all the boot-time calibration. This function it needs to call to store the 
-           calibration data to sFlash or in the Host application for later use.
-           @Note: Make sure that before calling this API, rlRfInit API is being called with 
-           all the calibrations ON */
-        retVal = rlRfCalibDataStore(deviceMap, &calibData);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Calibration data store failed for deviceMap %u with error code %d\n\n",
-                deviceMap, retVal);
-            return -1;
-        }
-        /* Power of the device, if it's already Up. */
-        retVal = MMWL_powerOff(deviceMap);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Device power off failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
-            return -1;
-        }
-        /* This function is the reference where application needs to use lastly stored calibration 
-           data and provide to the mmwave device so that it can skip the bootup time calibration 
-           and rely on given calibration data. */
-        retVal = MMWL_calibStoreRestore(deviceMap);
-        printf("====================Calibration Data Store & Restore===================\n");
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("calibration data restore test for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
-            return -1;
-        }
-        else
-        {
-            printf("calibration data restore test success for deviceMap %u \n\n", deviceMap);
-        }
-        printf("======================================================================\n\n");
-    }
+    //if (gLinkCalibStoreRestoreTest == TRUE)
+    //{
+    //    /* Host needs to invoke this API to get the calibration data from the device while device
+    //       has done all the boot-time calibration. This function it needs to call to store the 
+    //       calibration data to sFlash or in the Host application for later use.
+    //       @Note: Make sure that before calling this API, rlRfInit API is being called with 
+    //       all the calibrations ON */
+    //    retVal = rlRfCalibDataStore(deviceMap, &calibData);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("Calibration data store failed for deviceMap %u with error code %d\n\n",
+    //            deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    /* Power of the device, if it's already Up. */
+    //    retVal = MMWL_powerOff(deviceMap);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("Device power off failed for deviceMap %u with error code %d \n\n",
+    //            deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    /* This function is the reference where application needs to use lastly stored calibration 
+    //       data and provide to the mmwave device so that it can skip the bootup time calibration 
+    //       and rely on given calibration data. */
+    //    retVal = MMWL_calibStoreRestore(deviceMap);
+    //    printf("====================Calibration Data Store & Restore===================\n");
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("calibration data restore test for deviceMap %u with error code %d \n\n",
+    //            deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    else
+    //    {
+    //        printf(">>>>calibration data restore test success for deviceMap %u \n\n", deviceMap);
+    //    }
+    //    printf("======================================================================\n\n");
+    //}
 
     /*  \subsection     api_sequence6     Seq 6 - FMCW profile configuration
     TI mmWave devices supports Frequency Modulated Continuous Wave(FMCW) Radar. User
@@ -2239,17 +2222,16 @@ int MMWL_App()
 
     \ Note - User can define upto 4 different profiles
     */
-    printf("======================FMCW Configuration======================\n");
+    printf("\n======================FMCW(Profile/Chirp) Configuration======================\n");
     retVal = MMWL_profileConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Profile Configuration failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
+        printf("Profile Configuration failed with error code %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("Profile Configuration success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>Profile Configuration success \n\n");
     }
 
     /*  \subsection     api_sequence7     Seq 7 - FMCW chirp configuration
@@ -2264,13 +2246,12 @@ int MMWL_App()
     retVal = MMWL_chirpConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Chirp Configuration failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("Chirp Configuration failed with error %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("Chirp Configuration success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>Chirp Configuration success \n\n", deviceMap);
     }
 
     /*  \subsection     api_sequence8     Seq 8 - Data Path (CSI2/LVDS) Configuration
@@ -2280,17 +2261,16 @@ int MMWL_App()
 
     \ Note - This API is only applicable for AWR1243 when mmWaveLink driver is running on External Host
     */
-    printf("==================Data Path(LVDS/CSI2) Configuration==================\n");
+    printf("\n==================Data Path(LVDS/CSI2) Configuration==================\n");
     retVal = MMWL_dataPathConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Data Path Configuration failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("Data Path Configuration failed with error %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("Data Path Configuration successful for deviceMap %u \n\n", deviceMap);
+        printf(">>>>Data Path Configuration successful \n\n");
     }
 
     /*  \subsection     api_sequence9     Seq 9 - CSI2/LVDS CLock and Data Rate Configuration
@@ -2301,13 +2281,12 @@ int MMWL_App()
     retVal = MMWL_hsiClockConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("CSI2/LVDS Clock Configuration failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("CSI2/LVDS Clock Configuration failed with error %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("CSI2/LVDS Clock Configuration success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>CSI2/LVDS Clock Configuration success \n\n");
     }
 
     /*  \subsection     api_sequence10     Seq 10 - CSI2/LVDS Lane Configuration
@@ -2317,28 +2296,26 @@ int MMWL_App()
     retVal = MMWL_hsiLaneConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("CSI2/LVDS Lane Config failed for deviceMap %u with error %d \n",
-                deviceMap, retVal);
+        printf("CSI2/LVDS Lane Config failed with error %d \n", retVal);
         return -1;
     }
     else
     {
-        printf("CSI2/LVDS Lane Configuration success for deviceMap %u \n",
-                deviceMap);
+        printf(">>>>CSI2/LVDS Lane Configuration success\n");
     }
-    printf("======================================================================\n\n");
+    
+	printf("\n========================Frame Configuration=============================\n\n");
 
 #ifdef ENABLE_TEST_SOURCE
     retVal = MMWL_testSourceConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Test Source Configuration failed for deviceMap %u with error %d \n\n",
-                deviceMap, retVal);
+        printf("Test Source Configuration failed with error %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("Test source Configuration success for deviceMap %u \n\n", deviceMap);
+        printf("Test source Configuration success\n\n");
     }
 #endif
 
@@ -2351,13 +2328,12 @@ int MMWL_App()
         retVal = MMWL_frameConfig(deviceMap);
         if (retVal != RL_RET_CODE_OK)
         {
-            printf("Frame Configuration failed for deviceMap %u with error %d \n",
-                deviceMap, retVal);
+            printf("Frame Configuration failed with error %d \n", retVal);
             return -1;
         }
         else
         {
-            printf("Frame Configuration success for deviceMap %u \n", deviceMap);
+            printf(">>>>Frame Configuration success\n");
         }
     }
     else
@@ -2369,18 +2345,16 @@ int MMWL_App()
 
         if (retVal != RL_RET_CODE_OK)
         {
-            printf("Adv Frame Configuration failed for deviceMap %u with error %d \n",
-                deviceMap, retVal);
+            printf("Adv Frame Configuration failed with error %d \n", retVal);
             return -1;
         }
         else
         {
-            printf("Adv Frame Configuration success for deviceMap %u \n", deviceMap);
+            printf(">>>>Adv Frame Configuration success \n");
         }
     }
-    printf("======================================================================\n\n");
 
-    if (gLinkContModeTest == TRUE)
+    /*if (gLinkContModeTest == TRUE)
     {
         retVal = MMWL_setContMode(deviceMap);
         if (retVal != RL_RET_CODE_OK)
@@ -2391,9 +2365,12 @@ int MMWL_App()
         }
         else
         {
-            printf("Continuous mode Config successful for deviceMap %u \n\n", deviceMap);
+            printf(">>>>Continuous mode Config successful for deviceMap %u \n\n", deviceMap);
         }
-    }
+    }*/
+
+	printf("\n========================Start Sensor==============================\n\n");
+
     /*  \subsection     api_sequence12     Seq 12 - Start mmWave Radar Sensor
     This will trigger the mmWave Front to start transmitting FMCW signal. Raw ADC samples
     would be received from Digital front end. For AWR1243, if high speed interface is
@@ -2403,134 +2380,134 @@ int MMWL_App()
     retVal = MMWL_sensorStart(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Sensor Start failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
+        printf("Sensor Start failed with error code %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("Sensor Start successful for deviceMap %u \n\n", deviceMap);
-    }
-    printf("======================================================================\n\n");
-
-    if (gLinkDynProfileTest == TRUE)
-    {
-        /* Host can update profile configurations dynamically while frame is ongoing.
-           This test has been added in this example to demostrate dynamic profile update feature
-           of mmWave sensor device, developer must check the validity of parameters at the system
-           level before implementing the application. */
-
-        /* wait for few frames worth of time before updating profile config */
-        osiSleep(3*framePeriodicity);
-
-        /* update few of existing profile parameters */
-        profileCfgArgs[0].rxGain = 222;
-        profileCfgArgs[0].pfCalLutUpdate = 0x1; /* bit0: 1, bit1: 0 */
-        profileCfgArgs[0].hpfCornerFreq1 = 1;
-        profileCfgArgs[0].hpfCornerFreq2 = 1;
-        profileCfgArgs[0].txStartTime = 2;
-        profileCfgArgs[0].rampEndTime = 7000;
-
-        /* Dynamically configure 1 profile (max 4 profiles) while frame is ongoing */
-        retVal = rlSetProfileConfig(deviceMap, 1U, &profileCfgArgs[0U]);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Dynamic Profile Configuration failed for deviceMap %u with error code %d \n\n",
-                    deviceMap, retVal);
-            return -1;
-        }
-        else
-        {
-            printf("Dynamic Profile Configuration success for deviceMap %u \n\n", deviceMap);
-        }
-
-        /* wait for few frames worth of time before reading profile config.
-           Dynamic profile configuration will come in effect during next frame, so wait for that time
-           before reading back profile config */
-        osiSleep(2*framePeriodicity);
-
-        /* To verify that profile configuration parameters are applied to device while frame is ongoing,
-           read back profile configurationn from device */
-        retVal = rlGetProfileConfig(deviceMap, 0, &profileCfgArgs[1]);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Dynamic Get Profile Configuration failed for deviceMap %u with error code %d \n\n",
-                    deviceMap, retVal);
-            return -1;
-        }
-        else
-        {
-            printf("Dynamic Get Profile Configuration success for deviceMap %u \n\n", deviceMap);
-            /* compare the read back profile configuration parameters to lastly configured parameters */
-            if ((profileCfgArgs[0].rxGain != profileCfgArgs[1].rxGain) || \
-                (profileCfgArgs[0].hpfCornerFreq1 != profileCfgArgs[1].hpfCornerFreq1) || \
-                (profileCfgArgs[0].hpfCornerFreq2 != profileCfgArgs[1].hpfCornerFreq2) || \
-                (profileCfgArgs[0].txStartTime != profileCfgArgs[1].txStartTime) || \
-                (profileCfgArgs[0].rampEndTime != profileCfgArgs[1].rampEndTime))
-                printf("Dynamic Profile Config mismatched !!! \n\n");
-            else
-                printf("Dynamic profile cfg matched \n\n");
-        }
+        printf(">>>>Sensor Start successful \n\n");
     }
 
-    if (gLinkDynChirpTest == TRUE)
-    {
-        /* wait for few frames to elapse before invoking Dynamic chirp config API to update
-           new chirp config to come in effect for next frames */
+    //if (gLinkDynProfileTest == TRUE)
+    //{
+    //    /* Host can update profile configurations dynamically while frame is ongoing.
+    //       This test has been added in this example to demostrate dynamic profile update feature
+    //       of mmWave sensor device, developer must check the validity of parameters at the system
+    //       level before implementing the application. */
 
-        /* wait for few frames worth of time */
-        osiSleep(3*framePeriodicity);
+    //    /* wait for few frames worth of time before updating profile config */
+    //    osiSleep(3*framePeriodicity);
 
-        retVal = MMWL_setDynChirpConfig(deviceMap);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Dynamic Chirp config failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
-            return -1;
-        }
-        else
-        {
-            printf("Dynamic Chirp config successful for deviceMap %u \n\n", deviceMap);
-        }
-        printf("======================================================================\n\n");
+    //    /* update few of existing profile parameters */
+    //    profileCfgArgs[0].rxGain = 222;
+    //    profileCfgArgs[0].pfCalLutUpdate = 0x1; /* bit0: 1, bit1: 0 */
+    //    profileCfgArgs[0].hpfCornerFreq1 = 1;
+    //    profileCfgArgs[0].hpfCornerFreq2 = 1;
+    //    profileCfgArgs[0].txStartTime = 2;
+    //    profileCfgArgs[0].rampEndTime = 7000;
 
-        retVal = MMWL_dynChirpEnable(deviceMap);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Dynamic Chirp Enable failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
-            return -1;
-        }
-        else
-        {
-            printf("Dynamic Chirp Enable successful for deviceMap %u \n\n", deviceMap);
-        }
-        printf("======================================================================\n\n");
+    //    /* Dynamically configure 1 profile (max 4 profiles) while frame is ongoing */
+    //    retVal = rlSetProfileConfig(deviceMap, 1U, &profileCfgArgs[0U]);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("Dynamic Profile Configuration failed for deviceMap %u with error code %d \n\n",
+    //                deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    else
+    //    {
+    //        printf(">>>>Dynamic Profile Configuration success for deviceMap %u \n\n", deviceMap);
+    //    }
 
-        /* wait for another few mSec so that dynamic chirp come in effect,
-         If above API reached to BSS at the end of frame then new chirp config will come in effect
-         during next frame only */
-        osiSleep(2*framePeriodicity);
+    //    /* wait for few frames worth of time before reading profile config.
+    //       Dynamic profile configuration will come in effect during next frame, so wait for that time
+    //       before reading back profile config */
+    //    osiSleep(2*framePeriodicity);
 
-        /* read back Chirp config, which should be same as configured in dynChirpConfig for same segment */
-        retVal = MMWL_getDynChirpConfig(deviceMap);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("GetChirp Configuration failed for deviceMap %u with error %d \n\n",
-                    deviceMap, retVal);
-            return -1;
-        }
-        else
-        {
-            printf("GetChirp Configuration success for deviceMap %u \n\n", deviceMap);
-        }
-    }
+    //    /* To verify that profile configuration parameters are applied to device while frame is ongoing,
+    //       read back profile configurationn from device */
+    //    retVal = rlGetProfileConfig(deviceMap, 0, &profileCfgArgs[1]);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("Dynamic Get Profile Configuration failed for deviceMap %u with error code %d \n\n",
+    //                deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    else
+    //    {
+    //        printf(">>>>Dynamic Get Profile Configuration success for deviceMap %u \n\n", deviceMap);
+    //        /* compare the read back profile configuration parameters to lastly configured parameters */
+    //        if ((profileCfgArgs[0].rxGain != profileCfgArgs[1].rxGain) || \
+    //            (profileCfgArgs[0].hpfCornerFreq1 != profileCfgArgs[1].hpfCornerFreq1) || \
+    //            (profileCfgArgs[0].hpfCornerFreq2 != profileCfgArgs[1].hpfCornerFreq2) || \
+    //            (profileCfgArgs[0].txStartTime != profileCfgArgs[1].txStartTime) || \
+    //            (profileCfgArgs[0].rampEndTime != profileCfgArgs[1].rampEndTime))
+    //            printf("Dynamic Profile Config mismatched !!! \n\n");
+    //        else
+    //            printf("Dynamic profile cfg matched \n\n");
+    //    }
+    //}
+
+    //if (gLinkDynChirpTest == TRUE)
+    //{
+    //    /* wait for few frames to elapse before invoking Dynamic chirp config API to update
+    //       new chirp config to come in effect for next frames */
+
+    //    /* wait for few frames worth of time */
+    //    osiSleep(3*framePeriodicity);
+
+    //    retVal = MMWL_setDynChirpConfig(deviceMap);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("Dynamic Chirp config failed for deviceMap %u with error code %d \n\n",
+    //            deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    else
+    //    {
+    //        printf(">>>>Dynamic Chirp config successful for deviceMap %u \n\n", deviceMap);
+    //    }
+    //    printf("======================================================================\n\n");
+
+    //    retVal = MMWL_dynChirpEnable(deviceMap);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("Dynamic Chirp Enable failed for deviceMap %u with error code %d \n\n",
+    //            deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    else
+    //    {
+    //        printf(">>>>Dynamic Chirp Enable successful for deviceMap %u \n\n", deviceMap);
+    //    }
+    //    printf("======================================================================\n\n");
+
+    //    /* wait for another few mSec so that dynamic chirp come in effect,
+    //     If above API reached to BSS at the end of frame then new chirp config will come in effect
+    //     during next frame only */
+    //    osiSleep(2*framePeriodicity);
+
+    //    /* read back Chirp config, which should be same as configured in dynChirpConfig for same segment */
+    //    retVal = MMWL_getDynChirpConfig(deviceMap);
+    //    if (retVal != RL_RET_CODE_OK)
+    //    {
+    //        printf("GetChirp Configuration failed for deviceMap %u with error %d \n\n",
+    //                deviceMap, retVal);
+    //        return -1;
+    //    }
+    //    else
+    //    {
+    //        printf(">>>>GetChirp Configuration success for deviceMap %u \n\n", deviceMap);
+    //    }
+    //}
 
     /* @Note - all these SLeep is added in this demo application to demonstrate mmWave sensor features,
                 user can change these sleep time values as per their requirement */
 
     /* wait for 10 frames worth of time */
     osiSleep(10*framePeriodicity);
+
+	printf("\n=============================Stop Sensor===========================\n\n");
 
     /* Stop the frame */
     retVal = MMWL_sensorStop(deviceMap);
@@ -2542,15 +2519,16 @@ int MMWL_App()
         }
         else
         {
-            printf("Sensor Stop failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
+            printf("Sensor Stop failed with error code %d \n\n", retVal);
             return -1;
         }
     }
     else
     {
-        printf("Sensor Stop successful for deviceMap %u \n\n", deviceMap);
+        printf(">>>>Sensor Stop successful \n\n");
     }
+
+	printf("\n=============================GPAdc Config===========================\n\n");
 
     /* Note- Before Calling this API user must feed in input signal to device's pins,
     else device will return garbage data in GPAdc measurement over Async event.
@@ -2558,27 +2536,29 @@ int MMWL_App()
     retVal = MMWL_gpadcMeasConfig(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("GPAdc measurement API failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
+        printf("GPAdc measurement API failed with error code %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("GPAdc measurement API success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>GPAdc measurement API success\n\n");
     }
+	
+	printf("\n=============================Device Power Off===========================\n\n");
 
     /* Switch off the device */
     retVal = MMWL_powerOff(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
-        printf("Device power off failed for deviceMap %u with error code %d \n\n",
-                deviceMap, retVal);
+        printf("Device power off failed with error code %d \n\n", retVal);
         return -1;
     }
     else
     {
-        printf("Device power off success for deviceMap %u \n\n", deviceMap);
+        printf(">>>>Device power off success\n\n");
     }
+
+	printf("\n=============================Close Config File===========================\n\n");
 
     /* Close Configuraiton file */
     MMWL_closeConfigFile();
