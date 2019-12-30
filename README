@@ -1,0 +1,31 @@
+Prerequisites:
+OS: Windows;
+Devices: TI IWR1642BOOST + DCA1000EVM;
+Device connection: Figure 19 in DCA1000EVM User Guide (http://www.ti.com/lit/ug/spruij4a/spruij4a.pdf);
+IWR1642BOOST mode: SOP-4 mode (Table 4 in http://www.ti.com/lit/ug/swru521b/swru521b.pdf);
+
+Files Description:
+\DCA1000: Scripts and binaries to connect, configure and trigger DCA1000EVM;
+\DCA1000\Custom-build: urrently used scripts and binaries for DCA manipulation;
+\DCA1000\Pre-build: Archived, pre-build binary script by TI co.;
+\IWR1642: Scripts and binaries to connect, configure and trigger IWR1642BOOST;
+\IWR1642\ti\example\mmwavelink_example: Currently used scripts and binaries to manipulate IWR1642BOOST;
+\LUAShell: Archived, lua shell to configure and trigger frames, invoke by mmWave Studio;
+
+Usage:
+1.Connect and power on DCA+IWR devices
+2.Open cmd and change to DCA1000\Custom-build\Release\
+3.Run DCA1000EVM_CLI_Control.exe fpga cf.json
+This script will automatically connect and configure DCA1000
+If success status is returned by last step, then:
+4.Create Data/ folder in current directory, which will be used to store captured data
+5.Run DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]
+[file_prefix] should be sustituted with your own file prefix
+If success status is returned by last step, then:
+6.Open another cmd and change to IWR1642\ti\example\mmwavelink_example\Debug\
+7.Run mmwavelink_example.exe
+This script will automatically connect and configure IWR1642BOOST, and wait for command to traigger frames
+If success status is returned by last step, then:
+8.Press Enter key to trigger mmwave frames
+9.Press Enter key again to stop mmwave frames
+10.Check DCA1000\Custom-build\Release\Data folder for captured data
