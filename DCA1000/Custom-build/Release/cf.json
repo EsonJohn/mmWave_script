@@ -1,0 +1,59 @@
+{
+  "DCA1000Config": {
+    "dataLoggingMode": "raw",
+    "dataTransferMode": "LVDSCapture",
+    "dataCaptureMode": "ethernetStream",
+    "lvdsMode": 2,
+    "dataFormatMode": 3,
+    "packetDelay_us": 25,
+    "ethernetConfig": {
+      "DCA1000IPAddress": "192.168.33.180",
+      "DCA1000ConfigPort": 4096,
+      "DCA1000DataPort": 4098
+    },
+    "ethernetConfigUpdate": {
+      "systemIPAddress": "192.168.33.30",
+      "DCA1000IPAddress": "192.168.33.180",
+      "DCA1000MACAddress": "12.34.56.78.90.12",
+      "DCA1000ConfigPort": 4096,
+      "DCA1000DataPort": 4098
+    },
+    "captureConfig": {
+      "fileBasePath": ".\\Data\\",
+      "filePrefix": "adc_data",
+      "maxRecFileSize_MB": 1024,
+      "sequenceNumberEnable": 1,
+      "captureStopMode": "infinite",
+      "bytesToCapture": 4000,
+      "durationToCapture_ms": 4000,
+      "framesToCapture": 40
+    },
+    "dataFormatConfig": {
+      "MSBToggle": 0,
+      "laneFmtMap": 0,
+      "reorderEnable": 0,
+      "dataPortConfig": [
+        {
+          "portIdx": 0,
+          "dataType": "real"
+        },
+        {
+          "portIdx": 1,
+          "dataType": "complex"
+        },
+        {
+          "portIdx": 2,
+          "dataType": "real"
+        },
+        {
+          "portIdx": 3,
+          "dataType": "real"
+        },
+        {
+          "portIdx": 4,
+          "dataType": "complex"
+        }
+      ]
+    }
+  }
+}

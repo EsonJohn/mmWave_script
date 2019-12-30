@@ -1,6 +1,7 @@
 *.bin
 CLI_LogFile.txt
-./DCA1000/Pre-build/Data/
+/DCA1000/Pre-build/Release/Data/*
+/DCA1000/Custom-build/Release/Data/*
 mmwaveli.*.tlog
 adc_data_*.csv
 .vscode/
@@ -28,7 +29,7 @@ trace.txt
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+# *.dll
 
 # Fortran module files
 *.mod
@@ -41,7 +42,7 @@ trace.txt
 *.lib
 
 # Executables
-*.exe
+# *.exe
 *.out
 *.app
 
@@ -93,8 +94,8 @@ mono_crash.*
 # Build results
 # [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
+# [Rr]elease/
+# [Rr]eleases/
 x64/
 x86/
 [Aa][Rr][Mm]/
