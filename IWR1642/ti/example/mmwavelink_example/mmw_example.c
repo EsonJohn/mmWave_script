@@ -38,7 +38,8 @@
 * INCLUDE FILES
 ******************************************************************************
 */
-#include <windows.h>
+#include <winsock2.h>
+//#include <windows.h>
 #include <stdio.h>
 #include <share.h>
 #include <string.h>
@@ -48,8 +49,12 @@
 #include <ti/control/mmwavelink/mmwavelink.h>
 #include "rls_studio.h"
 #include "rls_osi.h"
+
 /* AWR1243 meta image file for ES 3.0 */
 #include "firmware/xwr12xx_metaImage.h"
+
+#pragma comment(lib, "Ws2_32.lib")
+#pragma warning(disable:4996) 
 
 /****************************************************************************************
 * MACRO DEFINITIONS
@@ -77,6 +82,9 @@
 
 /* To enable TX2 */
 #define ENABLE_TX2                             0
+
+/*Controled by Socket*/
+#define CONTROL_BY_SOCKET
 
 /******************************************************************************
 * GLOBAL VARIABLES/DATA-TYPES DEFINITIONS
@@ -143,6 +151,12 @@ uint64_t computeCRC(uint8_t *p, uint32_t len, uint8_t width);
 
 /* Function to compare dynamically configured chirp data */
 int MMWL_chirpParamCompare(rlChirpCfg_t * chirpData);
+
+/* Socket Info for connection to Master application */
+const char deviceID[10] = { "IWR1642" };
+const int MASTER_PORT = 5555;
+const char MASTER_ADDR[20] = { "127.0.0.1" };
+SOCKET MasterSocket;
 
 /******************************************************************************
 * all function definations starts here
@@ -2039,8 +2053,98 @@ int MMWL_lowPowerConfig(unsigned char deviceMap)
     return retVal;
 }
 
-int triggerSensorLoop(unsigned char deviceMap)
-{
+int setupMasterSocket(){
+	WSADATA WSAData;
+	SOCKADDR_IN serverAddr;
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_addr.s_addr = inet_addr(MASTER_ADDR);
+	serverAddr.sin_port = htons(MASTER_PORT);
+
+	// Setup Master socket
+	WSAStartup(MAKEWORD(2, 0), &WSAData);
+	MasterSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+	// Connect to Master
+	printf("Connecting to Master on %s:%d\n", MASTER_ADDR, MASTER_PORT);
+	int iCon = connect(MasterSocket, (SOCKADDR *)&serverAddr, sizeof(serverAddr));
+	if (iCon == SOCKET_ERROR) {
+		printf("Connect to Master failed.\n");
+		closesocket(MasterSocket);
+		return 0;
+	}
+	else{
+		printf("Connected to Master.\n");
+	}
+
+	// Send data by socket
+	char sendBuffer[1024];
+	strcpy(sendBuffer, deviceID);
+	int iSend = send(MasterSocket, sendBuffer, (int)strlen(sendBuffer), 0);
+	if (iSend == SOCKET_ERROR) {
+		printf("Send ID to Master failed.\n");
+		closesocket(MasterSocket);
+		return 0;
+	}
+	else{
+		printf("ID of \"%s\" sent!\n", sendBuffer);
+	}
+
+	return 1;
+}
+
+void triggerSensorLoop(unsigned char deviceMap){
+#ifdef CONTROL_BY_SOCKET
+	printf("\n========================Waiting for commands from socket==============================\n\n");
+	while (TRUE){
+		// Receive command from master
+		char recvBuffer[1024];
+		int iRecv = recv(MasterSocket, recvBuffer, sizeof(recvBuffer), 0);
+		recvBuffer[iRecv] = '\0';
+		if (iRecv <= 0) {
+			printf("Receive failed.\n");
+			MMWL_sensorStop(deviceMap);	// Stop sensor anyway
+			closesocket(MasterSocket);
+			return;
+		}
+		else{
+			printf("Command \"%s\" received.\n", recvBuffer);
+		}
+		if (!strcmp(recvBuffer, "start")){
+			printf("Starting sensor...\n\n");
+			int retVal = MMWL_sensorStart(deviceMap);
+			if (retVal != RL_RET_CODE_OK)
+			{
+				printf("Sensor Start failed with error code %d \n\n", retVal);
+				return;
+			}
+			else
+			{
+				printf(">>>>Sensor Start successful \n\n");
+			}
+		}else if(!strcmp(recvBuffer, "stop")){
+			printf("Stopping sensor...\n\n");
+			int retVal = MMWL_sensorStop(deviceMap);
+			if (retVal != RL_RET_CODE_OK)
+			{
+				if (retVal == RL_RET_CODE_FRAME_ALREADY_ENDED)
+				{
+					printf("Frame is already stopped when sensorStop CMD was issued\n");
+				}
+				else
+				{
+					printf("Sensor Stop failed with error code %d \n\n", retVal);
+					return -1;
+				}
+			}
+			else
+			{
+				printf(">>>>Sensor Stop successful \n\n");
+			}
+		}else{
+			printf("==== Illegal command received!\n\n ====");
+		}
+	}
+#else
 	char key = '\0';
 	while (TRUE)
 	{
@@ -2084,7 +2188,8 @@ int triggerSensorLoop(unsigned char deviceMap)
 		{
 			printf(">>>>Sensor Stop successful \n\n");
 		}
-	}	
+	}
+#endif
 }
 
 /** @fn int MMWL_App()
@@ -2097,9 +2202,17 @@ int triggerSensorLoop(unsigned char deviceMap)
 */
 int MMWL_App()
 {
+#ifdef CONTROL_BY_SOCKET
+	printf("\n========================Socket connecting to Master======================\n\n");
+	if (!setupMasterSocket()){
+		printf("Setup socket connection to Master failed!\n\n");
+		return -1;
+	}
+#endif
+
 	int retVal = RL_RET_CODE_OK;
 	unsigned char deviceMap = RL_DEVICE_MAP_CASCADED_1;
-
+	
 	printf("\n=============================Open Config File===========================\n\n");
 
     retVal = MMWL_openConfigFile();
@@ -2455,6 +2568,11 @@ int MMWL_App()
 
     /* Close Configuraiton file */
     MMWL_closeConfigFile();
+
+#ifdef CONTROL_BY_SOCKET
+	/* Release listening socket */
+	closesocket(MasterSocket);
+#endif
 
     return 0;
 }

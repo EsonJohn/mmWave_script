@@ -2,7 +2,7 @@
 CLI_LogFile.txt
 /DCA1000/Pre-build/Release/Data/*
 /DCA1000/Custom-build/Release/Data/*
-mmwaveli.*.tlog
+mmwaveli.*.tlog/
 adc_data_*.csv
 .vscode/
 *.exp
