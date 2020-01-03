@@ -1,0 +1,118 @@
+#ti\control\mmwavelink\docs\doxygen\html\index.html
+
+#############Basic Config###############################[FIRM]
+cascade_enable=0;
+# crcType 0:16Bit/1:32Bit/2:64Bit/3:disable
+crcType=1;
+ackTimeout=1000;
+
+# binary format, e.g. 3=(11), 15=(1111)
+channelTx=3;
+channelRx=15;
+cascading=0;
+
+# =b2AdcBits: 0(12 Bits), 1(14 Bits), 2(16 Bits)
+adcBits=2;
+# =b2AdcOutFmt: 0(Real), 1(Complex), 2(Complex with Image band), 3(Pseudo Real)
+adcFormat=1;
+
+# rxChanEn: 15=(1111)
+# adcFmt: 0(Real), 1(Complex), 2(Complex with Image band), 3(Pseudo Real)
+# iqSwapSel: 0 I First, 1 Q First
+# chInterleave: 0 Interleave, 1 Non-Interleave(Allowed for 1642)
+rxChanEn=15;
+# =adcBits: 0(12 Bits), 1(1=4 Bits), 2(16 Bits)
+adcBitsD=2;
+adcFmt=1;
+iqSwapSel=0;
+chInterleave=1;
+
+#lpAdcMode - 0(Regular) 1(LowPower)
+anaCfg=0;
+lpAdcMode=1;
+
+################Data Path config###########################[FIRM]
+#intfSel: 0 CSI2, 1 LVDS, 2 SPI
+#transferFmtPkt0: 1 ADC_DATA_ONLY, 6 CP_ADC_DATA, 9 ADC_CP_DATA, 54 CP_ADC_CQ_DATA
+#transferFmtPkt1: 0: Suppress Packet 1, 14 CP_CQ_DATA, 11 CQ_CP_DATA
+#cqConfig: 0 12bit, 1 14bit, 2 16bit
+intfSel=1;
+transferFmtPkt0=1;
+transferFmtPkt1=0;
+#cqConfig=2;
+#cq0TransSize=132;
+#cq1TransSize=132;
+#cq2TransSize=72;
+
+#LVDS clock config[FIRM]
+#laneClk: 0 SDR Clock, 1 DDR Clock(Only Valid for CSI2)
+#dataRate: 0 900,1 600,2 450,3 400,4 300,5 225,6 150
+laneClk=1;
+dataRate=1;
+
+#HSI clock[FIRM]
+#SDR: 0x5(900 mbps), 0xA(600 mbps), 0x6(450 mbps), 0x2(400 mbps), 0xB(300 mbps), 0x7(225 mbps)
+#DDR: 0xD(900 mbps), 0x9(600 mbps), 0x5(450 mbps), 0x1(400 mbps), 0xA(300 mbps), 0x6(225 mbps ), 0xB(150 mbps)
+hsiClk=9
+
+#LANE config[FIRM]
+#laneEn: 1111 All enable(0011 for 1642)
+laneEn=3;
+
+#LVDS Lane Config[FIRM]
+#laneFmtMap: 0 Format0, 1 Format1
+#laneParamCfg: complicated, refer to documentary
+laneFmtMap=0;
+laneParamCfg=1;
+
+########################################################################
+########################################################################
+#Profile config
+#digOutSampleRate: 	1LSB=1 ksps
+#startFreqConst: 	1LSB=53.644 Hz (77GHz~1435388860)
+#idleTimeConst: 	1LSB=10ns (10us~1000) Valid: 0 to 524287
+#adcStartTimeConst: 1LSB=10ns (6us~600) Valid: 0 to 4095
+#rampEndTime: 		1LSB=10ns(60us~6000)  Valid: 0 to 500000
+#freqSlopeVar: 		1LSB=48.279KHz Valid: -2072~2072 (Max 100MHz/uS)
+#txStartTime: 		1LSB=10ns, Valid: -4096 to 4095
+#numAdcSamples: 	Must be times of 2
+profileId=0;
+startFreqConst=1435388860;
+idleTimeConst=1000;
+adcStartTimeConst=600;
+rampEndTime=4700;
+txOutPowerBackoffCode=0;
+txPhaseShifter=0;
+freqSlopeConst=1762;
+txStartTime=0;
+numAdcSamples=256;
+digOutSampleRate=6250;
+hpfCornerFreq1=0;
+hpfCornerFreq2=0;
+txCalibEnCfg=511;
+rxGain=30;
+
+#Chirp Configuration
+#txEnable: 11=All enable
+chirpStartIdx=0;
+chirpEndIdx=0;
+profileIdCPCFG=0;
+startFreqVar=0;
+freqSlopeVar=0;
+idleTimeVar=0;
+adcStartTimeVar=0;
+txEnable=1;
+
+#Frame configuration
+#periodicity: 	1LSB=5ns(20000000~100ms)
+chirpStartIdxFCF=0;
+chirpEndIdxFCF=0;
+frameCount=1;
+loopCount=99;
+periodicity=8000000;
+triggerDelay=0;
+triggerSelect=1;
+########################################################################
+########################################################################
+
+

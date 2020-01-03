@@ -387,11 +387,12 @@ void MMWL_readDataFmtConfig(rlDevDataFmtCfg_t *dataFmtCfgArgs)
         else
         {
             strncpy(value, s, STRINGLEN);
-        }
-        MMWL_trim(value);
+		}
+
+		MMWL_trim(value);
 
         if (strcmp(name, "rxChanEn") == 0)
-            dataFmtCfgArgs->rxChannelEn = atoi(value);
+			dataFmtCfgArgs->rxChannelEn = atoi(value);
 
         if (strcmp(name, "adcBitsD") == 0)
             dataFmtCfgArgs->adcBits = atoi(value);

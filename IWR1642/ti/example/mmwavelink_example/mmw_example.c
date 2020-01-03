@@ -84,7 +84,7 @@
 #define ENABLE_TX2                             0
 
 /*Controled by Socket*/
-#define CONTROL_BY_SOCKET
+//#define CONTROL_BY_SOCKET
 
 /******************************************************************************
 * GLOBAL VARIABLES/DATA-TYPES DEFINITIONS
