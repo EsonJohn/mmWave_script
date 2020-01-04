@@ -39,7 +39,6 @@
 ******************************************************************************
 */
 #include <winsock2.h>
-//#include <windows.h>
 #include <stdio.h>
 #include <share.h>
 #include <string.h>
@@ -49,9 +48,6 @@
 #include <ti/control/mmwavelink/mmwavelink.h>
 #include "rls_studio.h"
 #include "rls_osi.h"
-
-/* AWR1243 meta image file for ES 3.0 */
-#include "firmware/xwr12xx_metaImage.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 #pragma warning(disable:4996) 
@@ -71,9 +67,6 @@
 #define MMWL_API_START_TIMEOUT               (1000) /* 1 Sec*/
 #define MMWL_API_RF_INIT_TIMEOUT             (1000) /* 1 Sec*/
 
-/* To Enable File download */
-#define FIRMWARE_DOWNLOAD                      0
-
 /* MAX unique chirp AWR1243 supports */
 #define MAX_UNIQUE_CHIRP_INDEX                (512 -1)
 
@@ -83,7 +76,12 @@
 /* To enable TX2 */
 #define ENABLE_TX2                             0
 
-/*Controled by Socket*/
+/* Enable Advanced frame config test in the application
+1 -> config AdvFrame
+0 -> config Legacy Frame */
+#define gLinkAdvanceFrameTest 0
+
+/* Controled by Socket */
 //#define CONTROL_BY_SOCKET
 
 /******************************************************************************
@@ -101,11 +99,6 @@ static unsigned char mmwl_bSensorStarted = 0U;
 static unsigned char mmwl_bGpadcDataRcv = 0U;
 
 unsigned char gAwr1243CrcType = RL_CRC_TYPE_32BIT;
-
-/* Enable Advanced frame config test in the application
-TRUE -> config AdvFrame
-FALSE -> config Legacy Frame */
-unsigned char gLinkAdvanceFrameTest = FALSE;
 
 /* Enable/Disable continuous mode config test in the application */
 unsigned char gLinkContModeTest = FALSE;
@@ -130,7 +123,7 @@ unsigned int framePeriodicity = 0;
 unsigned int frameCount = 0;
 
 /* SPI Communication handle to AWR1243 device*/
-rlComIfHdl_t mmwl_devHdl = NULL;
+rlComIfHdl_t mmwl_devSpiHdl = NULL;
 
 /* structure parameters of two profile confing and cont mode config are same */
 rlProfileCfg_t profileCfgArgs[2] = { 0 };
@@ -157,11 +150,6 @@ const char deviceID[10] = { "IWR1642" };
 const int MASTER_PORT = 5555;
 const char MASTER_ADDR[20] = { "127.0.0.1" };
 SOCKET MasterSocket;
-
-/******************************************************************************
-* all function definations starts here
-*******************************************************************************
-*/
 
 /** @fn void MMWL_asyncEventHandler(rlUInt8_t deviceIndex, rlUInt16_t sbId,
 *    rlUInt16_t sbLen, rlUInt8_t *payload)
@@ -336,8 +324,8 @@ void MMWL_asyncEventHandler(rlUInt8_t deviceIndex, rlUInt16_t sbId,
 rlComIfHdl_t MMWL_spiOpen(unsigned char deviceIndex, unsigned int flags)
 {
     printf("rlComIfOpen Callback Called for Device [%d]\n", deviceIndex);
-    mmwl_devHdl = rlsSpiOpen(&deviceIndex, flags);
-    return mmwl_devHdl;
+    mmwl_devSpiHdl = rlsSpiOpen(&deviceIndex, flags);
+    return mmwl_devSpiHdl;
 }
 
 /** @fn int MMWL_enableDevice(unsigned char deviceIndex)
@@ -439,10 +427,12 @@ int MMWL_powerOnMaster(unsigned char deviceMap)
 
     Refer to \ref rlComIfCbs_t for interface details
     */
+	// >>>>
     clientCtx.comIfCb.rlComIfOpen = MMWL_spiOpen;
     clientCtx.comIfCb.rlComIfClose = rlsSpiClose;
-    clientCtx.comIfCb.rlComIfRead = rlsSpiRead;
-    clientCtx.comIfCb.rlComIfWrite = rlsSpiWrite;
+	clientCtx.comIfCb.rlComIfRead = rlsSpiRead;
+	clientCtx.comIfCb.rlComIfWrite = rlsSpiWrite;
+	// <<<<
 
     /*   \subsection     porting_step3   Step 3 - Implement Device Control Interface
     The mmWaveLink driver internally powers on/off the mmWave device. The exact implementation of
@@ -455,10 +445,11 @@ int MMWL_powerOnMaster(unsigned char deviceMap)
     */
     clientCtx.devCtrlCb.rlDeviceDisable = MMWL_disableDevice;
     clientCtx.devCtrlCb.rlDeviceEnable = MMWL_enableDevice;
-    clientCtx.devCtrlCb.rlDeviceMaskHostIrq = rlsSpiIRQMask;
-    clientCtx.devCtrlCb.rlDeviceUnMaskHostIrq = rlsSpiIRQUnMask;
     clientCtx.devCtrlCb.rlRegisterInterruptHandler = rlsRegisterInterruptHandler;
     clientCtx.devCtrlCb.rlDeviceWaitIrqStatus = rlsDeviceWaitIrqStatus;
+
+	clientCtx.devCtrlCb.rlDeviceMaskHostIrq = rlsSpiIRQMask;
+	clientCtx.devCtrlCb.rlDeviceUnMaskHostIrq = rlsSpiIRQUnMask;
 
     /*  \subsection     porting_step4     Step 4 - Implement Event Handlers
     The mmWaveLink driver reports asynchronous event indicating mmWave device status, exceptions
@@ -506,7 +497,7 @@ int MMWL_powerOnMaster(unsigned char deviceMap)
     passing appropriate platform and device type
     */
     clientCtx.platform = RL_PLATFORM_HOST;
-    clientCtx.arDevType = RL_AR_DEVICETYPE_12XX;
+	clientCtx.arDevType = RL_AR_DEVICETYPE_16XX;
 
     /*clear all the interupts flag*/
     mmwl_bInitComp = 0;
@@ -553,150 +544,6 @@ int MMWL_fileWrite(unsigned char deviceMap,
 
     ret_val = rlDeviceFileDownload(deviceMap, &fileChunk, remChunks);
     return ret_val;
-}
-
-/** @fn int MMWL_fileDownload((unsigned char deviceMap,
-                  mmwlFileType_t fileType,
-                  unsigned int fileLen)
-*
-*   @brief Firmware Download API.
-*
-*   @param[in] deviceMap - Devic Index
-*    @param[in] fileType - firmware/file type
-*    @param[in] fileLen - firmware/file length
-*
-*   @return int Success - 0, Failure - Error Code
-*
-*   Firmware Download API.
-*/
-int MMWL_fileDownload(unsigned char deviceMap,
-                  unsigned int fileLen)
-{
-    unsigned int imgLen = fileLen;
-    int ret_val = -1;
-    int mmwl_iRemChunks = 0;
-    unsigned short usChunkLen = 0U;
-    unsigned int iNumChunks = 0U;
-    unsigned short usLastChunkLen = 0;
-    unsigned short usFirstChunkLen = 0;
-    unsigned short usProgress = 0;
-
-    /*First Chunk*/
-    unsigned char firstChunk[MMWL_FW_CHUNK_SIZE];
-    unsigned char* pmmwl_imgBuffer = NULL;
-
-    pmmwl_imgBuffer = (unsigned char*)&metaImage[0];
-
-    if(pmmwl_imgBuffer == NULL)
-    {
-        printf("MMWL_fileDwld Fail : File Buffer is NULL \n\r");
-        return -1;
-    }
-
-    /*Download to Device*/
-    usChunkLen = MMWL_FW_CHUNK_SIZE;
-    iNumChunks = (imgLen + 8) / usChunkLen;
-    mmwl_iRemChunks = iNumChunks;
-
-    if (mmwl_iRemChunks > 0)
-    {
-        usLastChunkLen = (imgLen + 8) % usChunkLen;
-        usFirstChunkLen = MMWL_FW_CHUNK_SIZE;
-    }
-    else
-    {
-        usFirstChunkLen = imgLen + 8;
-    }
-
-    *((unsigned int*)&firstChunk[0]) = (unsigned int)MMWL_FILETYPE_META_IMG;
-    *((unsigned int*)&firstChunk[4]) = (unsigned int)imgLen;
-    memcpy((char*)&firstChunk[8], (char*)pmmwl_imgBuffer,
-                usFirstChunkLen - 8);
-
-    ret_val = MMWL_fileWrite(deviceMap, mmwl_iRemChunks, usFirstChunkLen,
-                              firstChunk);
-    if (ret_val < 0)
-    {
-        printf("MMWL_fileDwld Fail : Ftype: %d\n\r", MMWL_FILETYPE_META_IMG);
-        return ret_val;
-    }
-    pmmwl_imgBuffer += MMWL_FW_FIRST_CHUNK_SIZE;
-    mmwl_iRemChunks--;
-
-    if(mmwl_iRemChunks > 0)
-    {
-        printf("Download in Progress: %d%%..", usProgress);
-    }
-    /*Remaining Chunk*/
-    while (mmwl_iRemChunks > 0)
-    {
-        if ((((iNumChunks - mmwl_iRemChunks) * 100)/iNumChunks - usProgress) > 10)
-        {
-            usProgress += 10;
-            printf("%d%%..", usProgress);
-        }
-
-        ret_val = MMWL_fileWrite(deviceMap, mmwl_iRemChunks,
-                    MMWL_FW_CHUNK_SIZE, pmmwl_imgBuffer);
-
-        if (ret_val < 0)
-        {
-            printf("\n\r MMWL_fileDwld rem chunk Fail : Ftype: %d\n\r",
-                MMWL_FILETYPE_META_IMG);
-            return ret_val;
-        }
-        pmmwl_imgBuffer += MMWL_FW_CHUNK_SIZE;
-        mmwl_iRemChunks--;
-    }
-
-    /*Last Chunk*/
-    if (usLastChunkLen > 0)
-    {
-        ret_val = MMWL_fileWrite(deviceMap, 0, usLastChunkLen,
-                                  pmmwl_imgBuffer);
-        if (ret_val < 0)
-        {
-            printf("MMWL_fileDwld last chunk Fail : Ftype: %d\n\r",
-                MMWL_FILETYPE_META_IMG);
-            return ret_val;
-        }
-    }
-     printf("Done!\n");
-    return ret_val;
-}
-
-/** @fn int MMWL_firmwareDownload(deviceMap)
-*
-*   @brief Firmware Download API.
-*
-*   @param[in] deviceMap - Devic Index
-*
-*   @return int Success - 0, Failure - Error Code
-*
-*   Firmware Download API.
-*/
-int MMWL_firmwareDownload(unsigned char deviceMap)
-{
-    int retVal = RL_RET_CODE_OK, timeOutCnt = 0;
-
-    /* Meta Image download */
-    printf("Meta Image download started");
-    retVal = MMWL_fileDownload(deviceMap, MMWL_META_IMG_FILE_SIZE);
-    printf("Meta Image download complete ret = %d\n", retVal);
-
-    printf("\nWaiting for firmware update response from mmWave device \n");
-    while (mmwl_bInitComp == 0)
-    {
-        osiSleep(1); /*Sleep 1 msec*/
-        timeOutCnt++;
-        if (timeOutCnt > MMWL_API_INIT_TIMEOUT)
-        {
-            retVal = RL_RET_CODE_RESP_TIMEOUT;
-            break;
-        }
-    }
-    mmwl_bInitComp = 0;
-    return retVal;
 }
 
 /** @fn int MMWL_rfEnable(deviceMap)
@@ -1061,117 +908,6 @@ int MMWL_rfInit(unsigned char deviceMap)
     return retVal;
 }
 
-/** @fn int MMWL_calibStoreRestore(unsigned char deviceMap)
-*
-*   @brief Calibration data restore test.
-*
-*   @param[in] deviceMap - Devic Index
-*
-*   @return int Success - 0, Failure - Error Code
-*
-*   This function provides the reference how the Host can use the factory 
-*   calibration and inject that to mmWave device.
-*/
-int MMWL_calibStoreRestore(unsigned char deviceMap)
-{
-    int retVal = RL_RET_CODE_OK, timeOutCnt = 0;
-    rlRfInitCalConf_t rfCalibCfgArgs = { 0 };
-    /* Disable all calibrations if Host has calibration data stored and 
-       wish to avoid running calibrations on mmWave device. */
-    rfCalibCfgArgs.calibEnMask = 0x0;
-
-    /* Power on the device */
-    retVal = MMWL_powerOnMaster(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("mmWave Device Power on failed with error %d \n\n", retVal);
-        return -1;
-    }
-#if (FIRMWARE_DOWNLOAD)
-    /* Download firmware */
-    retVal = MMWL_firmwareDownload(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("Firmware update failed with error %d \n", retVal);
-        return -1;
-    }
-#endif
-    /* Set CRC type */
-    //retVal = MMWL_setDeviceCrcType(deviceMap);
-    //if (retVal != RL_RET_CODE_OK)
-    //{
-    //    printf("CRC Type set for MasterSS failed with error code %d \n\n", retVal);
-    //    return -1;
-    //}
-    ///* Power on radarss */
-    //retVal = MMWL_rfEnable(deviceMap);
-    //if (retVal != RL_RET_CODE_OK)
-    //{
-    //    printf("Radar/RF subsystem Power up failed for deviceMap %u with error %d \n\n",
-    //        deviceMap, retVal);
-    //    return -1;
-    //}
-    /* Configure channels, ADC data, data path, etc.. */
-    retVal = MMWL_basicConfiguration(deviceMap, 0);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("Basic/Static configuration failed with error %d \n", retVal);
-        return -1;
-    }
-    /* Disble all the calibrations as Host has already stored the calibration data from
-       the mmWave device and tried to inject to the device. */
-    retVal = rlRfInitCalibConfig(deviceMap, &rfCalibCfgArgs);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("RF calib configuration failed with error code %d \n\n", retVal);
-        return -1;
-
-    }
-    mmwl_bRfInitComp = 0;
-    /* Invoke this API to inject lastly stored calibration data which was either
-       stored on sFlash of Host or embedded in the Host application. */
-    retVal = rlRfCalibDataRestore(deviceMap, &calibData);
-    
-    /* Device will send an Async Event if it doesn't detect any error in the calibration data */
-    while (mmwl_bRfInitComp == 0U)
-    {
-        osiSleep(1); /*Sleep 1 msec*/
-        timeOutCnt++;
-        if (timeOutCnt > MMWL_API_RF_INIT_TIMEOUT)
-        {
-            retVal = RL_RET_CODE_RESP_TIMEOUT;
-            break;
-        }
-    }
-    mmwl_bRfInitComp = 0;
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("Calibration data re-store failed with error code %d\n\n", retVal);
-        return -1;
-    }
-    /* Invoke this API when device will use the above sent calibration data and skip 
-       initiating the calibration. */
-    mmwl_bRfInitComp = 0;
-    retVal = rlRfInit(deviceMap);
-    while (mmwl_bRfInitComp == 0U)
-    {
-        osiSleep(1); /*Sleep 1 msec*/
-        timeOutCnt++;
-        if (timeOutCnt > MMWL_API_RF_INIT_TIMEOUT)
-        {
-            retVal = RL_RET_CODE_RESP_TIMEOUT;
-            break;
-        }
-    }
-    mmwl_bRfInitComp = 0;
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("RF Initialization/Calibration failed with error code %d \n\n", retVal);
-        return -1;
-    }
-    return 0;
-}
-
 /** @fn int MMWL_profileConfig(unsigned char deviceMap)
 *
 *   @brief Profile configuration API.
@@ -1503,81 +1239,6 @@ int MMWL_advFrameConfig(unsigned char deviceMap)
     return retVal;
 }
 
-/**
- *******************************************************************************
- *
- * \brief   Local function to enable the dummy input of objects from AWR143
- *
- * \param   None
- * /return  retVal   BSP_SOK if the test source is set correctly.
- *
- *******************************************************************************
-*/
-#if defined (ENABLE_TEST_SOURCE)
-int MMWL_testSourceConfig(unsigned char deviceMap)
-{
-    rlTestSource_t tsArgs = {0};
-    rlTestSourceEnable_t tsEnableArgs = {0};
-    int retVal = RL_RET_CODE_OK;
-
-    tsArgs.testObj[0].posX = 0;
-
-    tsArgs.testObj[0].posY = 500;
-    tsArgs.testObj[0].posZ = 0;
-
-    tsArgs.testObj[0].velX = 0;
-    tsArgs.testObj[0].velY = 0;
-    tsArgs.testObj[0].velZ = 0;
-
-    tsArgs.testObj[0].posXMin = -32700;
-    tsArgs.testObj[0].posYMin = 0;
-    tsArgs.testObj[0].posZMin = -32700;
-
-    tsArgs.testObj[0].posXMax = 32700;
-    tsArgs.testObj[0].posYMax = 32700;
-    tsArgs.testObj[0].posZMax = 32700;
-
-    tsArgs.testObj[0].sigLvl = 150;
-
-    tsArgs.testObj[1].posX = 0;
-    tsArgs.testObj[1].posY = 32700;
-    tsArgs.testObj[1].posZ = 0;
-
-    tsArgs.testObj[1].velX = 0;
-    tsArgs.testObj[1].velY = 0;
-    tsArgs.testObj[1].velZ = 0;
-
-    tsArgs.testObj[1].posXMin = -32700;
-    tsArgs.testObj[1].posYMin = 0;
-    tsArgs.testObj[1].posZMin = -32700;
-
-    tsArgs.testObj[1].posXMax = 32700;
-    tsArgs.testObj[1].posYMax = 32700;
-    tsArgs.testObj[1].posZMax = 32700;
-
-    tsArgs.testObj[1].sigLvl = 948;
-
-    tsArgs.rxAntPos[0].antPosX = 0;
-    tsArgs.rxAntPos[0].antPosZ = 0;
-    tsArgs.rxAntPos[1].antPosX = 32;
-    tsArgs.rxAntPos[1].antPosZ = 0;
-    tsArgs.rxAntPos[2].antPosX = 64;
-    tsArgs.rxAntPos[2].antPosZ = 0;
-    tsArgs.rxAntPos[3].antPosX = 96;
-    tsArgs.rxAntPos[3].antPosZ = 0;
-
-    printf("Calling rlSetTestSourceConfig with Simulated Object at X[%d]cm, Y[%d]cm, Z[%d]cm \n",
-            tsArgs.testObj[0].posX, tsArgs.testObj[0].posY, tsArgs.testObj[0].posZ);
-
-    retVal = rlSetTestSourceConfig(deviceMap, &tsArgs);
-
-    tsEnableArgs.tsEnable = 1U;
-    retVal = rlTestSourceEnable(deviceMap, &tsEnableArgs);
-
-    return retVal;
-}
-#endif
-
 /** @fn int MMWL_dataPathConfig(unsigned char deviceMap)
 *
 *   @brief Data path configuration API. Configures CQ data size on the
@@ -1807,13 +1468,13 @@ int MMWL_gpadcMeasConfig(unsigned char deviceMap)
     /* enable all the sensors [0-6] to read gpADC measurement data */
     gpadcCfg.enable = 0x3F;
     /* set the number of samples device needs to collect to do the measurement */
-    gpadcCfg.numOfSamples[0].sampleCnt = 32;
-    gpadcCfg.numOfSamples[1].sampleCnt = 32;
-    gpadcCfg.numOfSamples[2].sampleCnt = 32;
-    gpadcCfg.numOfSamples[3].sampleCnt = 32;
-    gpadcCfg.numOfSamples[4].sampleCnt = 32;
-    gpadcCfg.numOfSamples[5].sampleCnt = 32;
-    gpadcCfg.numOfSamples[6].sampleCnt = 32;
+    gpadcCfg.numOfSamples[0].sampleCnt = 16;
+    gpadcCfg.numOfSamples[1].sampleCnt = 16;
+    gpadcCfg.numOfSamples[2].sampleCnt = 16;
+    gpadcCfg.numOfSamples[3].sampleCnt = 16;
+    gpadcCfg.numOfSamples[4].sampleCnt = 16;
+    gpadcCfg.numOfSamples[5].sampleCnt = 16;
+    gpadcCfg.numOfSamples[6].sampleCnt = 16;
 
     retVal = rlSetGpAdcConfig(deviceMap, &gpadcCfg);
 
@@ -2025,7 +1686,7 @@ int MMWL_powerOff(unsigned char deviceMap)
     mmwl_bInitComp = 0;
     mmwl_bStartComp = 0U;
     mmwl_bRfInitComp = 0U;
-    mmwl_devHdl = NULL;
+    mmwl_devSpiHdl = NULL;
 
     return retVal;
 }
@@ -2192,14 +1853,6 @@ void triggerSensorLoop(unsigned char deviceMap){
 #endif
 }
 
-/** @fn int MMWL_App()
-*
-*   @brief mmWaveLink Example Application.
-*
-*   @return int Success - 0, Failure - Error Code
-*
-*   mmWaveLink Example Application.
-*/
 int MMWL_App()
 {
 #ifdef CONTROL_BY_SOCKET
@@ -2214,7 +1867,6 @@ int MMWL_App()
 	unsigned char deviceMap = RL_DEVICE_MAP_CASCADED_1;
 	
 	printf("\n=============================Open Config File===========================\n\n");
-
     retVal = MMWL_openConfigFile();
     if (retVal != RL_RET_CODE_OK)
     {
@@ -2226,12 +1878,11 @@ int MMWL_App()
 		printf(">>>>success to Open configuration file\n");
 	}
 
-	printf("\n=============================Device Power On===========================\n\n");
-
     /*  \subsection     api_sequence1     Seq 1 - Call Power ON API
     The mmWaveLink driver initializes the internal components, creates Mutex/Semaphore,
     initializes buffers, register interrupts, bring mmWave front end out of reset.
     */
+	printf("\n=============================Device Power On===========================\n\n");
     retVal = MMWL_powerOnMaster(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
@@ -2243,27 +1894,6 @@ int MMWL_App()
         printf(">>>>mmWave Device Power on success \n\n");
     }
 
-	printf("\n=============================Enable RF===========================\n\n");
-
-    /*  \subsection     api_sequence2     Seq 2 - Download FIrmware/patch (Optional)
-    The mmWave device firmware is ROMed and also can be stored in External Flash. This
-    step is necessary if firmware needs to be patched and patch is not stored in serial
-    Flash
-    */
-#if (FIRMWARE_DOWNLOAD)
-    printf("==========================Firmware Download==========================\n");
-    retVal = MMWL_firmwareDownload(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("Firmware update failed with error %d \n", retVal);
-        return -1;
-    }
-    else
-    {
-        printf("Firmware update successful \n");
-    }
-    printf("=====================================================================\n");
-#endif
     /* Change CRC Type of Async Event generated by MSS to what is being requested by user in mmwaveconfig.txt */
     /*retVal = MMWL_setDeviceCrcType(deviceMap);
     if (retVal != RL_RET_CODE_OK)
@@ -2281,6 +1911,7 @@ int MMWL_App()
     The mmWave Front end once enabled runs boot time routines and upon completion sends asynchronous event
     to notify the result
     */
+	printf("\n=============================Enable RF===========================\n\n");
     retVal = MMWL_rfEnable(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
@@ -2324,54 +1955,6 @@ int MMWL_App()
     {
         printf(">>>>RF Initialization/Calibration successful\n\n");
     }
-
-    /* mmwave sensor provides a feature to do the factory calibration, where application needs
-       to send already stored calibration data to mmwave device. In this flow device will use 
-       provided calibration data and skip doing actual boot-time calibration. With this option
-       application can save the calibration time and the current (which consumes during default
-       boot-time calibraiton).
-       In this application, user needs to set this flag to run this test. This code flow is provided 
-       as a reference which Host can implement.
-       */
-    //if (gLinkCalibStoreRestoreTest == TRUE)
-    //{
-    //    /* Host needs to invoke this API to get the calibration data from the device while device
-    //       has done all the boot-time calibration. This function it needs to call to store the 
-    //       calibration data to sFlash or in the Host application for later use.
-    //       @Note: Make sure that before calling this API, rlRfInit API is being called with 
-    //       all the calibrations ON */
-    //    retVal = rlRfCalibDataStore(deviceMap, &calibData);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("Calibration data store failed for deviceMap %u with error code %d\n\n",
-    //            deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    /* Power of the device, if it's already Up. */
-    //    retVal = MMWL_powerOff(deviceMap);
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("Device power off failed for deviceMap %u with error code %d \n\n",
-    //            deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    /* This function is the reference where application needs to use lastly stored calibration 
-    //       data and provide to the mmwave device so that it can skip the bootup time calibration 
-    //       and rely on given calibration data. */
-    //    retVal = MMWL_calibStoreRestore(deviceMap);
-    //    printf("====================Calibration Data Store & Restore===================\n");
-    //    if (retVal != RL_RET_CODE_OK)
-    //    {
-    //        printf("calibration data restore test for deviceMap %u with error code %d \n\n",
-    //            deviceMap, retVal);
-    //        return -1;
-    //    }
-    //    else
-    //    {
-    //        printf(">>>>calibration data restore test success for deviceMap %u \n\n", deviceMap);
-    //    }
-    //    printf("======================================================================\n\n");
-    //}
 
     /*  \subsection     api_sequence6     Seq 6 - FMCW profile configuration
     TI mmWave devices supports Frequency Modulated Continuous Wave(FMCW) Radar. User
@@ -2465,54 +2048,40 @@ int MMWL_App()
     }
     
 	printf("\n========================Frame Configuration=============================\n\n");
+#if(gLinkAdvanceFrameTest)
+	{
+		/*  \subsection     api_sequence11     Seq 11 - FMCW Advance frame configuration
+		A frame defines sequence of chirps and how this sequence needs to be repeated over time.
+		*/
+		retVal = MMWL_advFrameConfig(deviceMap);
 
-#ifdef ENABLE_TEST_SOURCE
-    retVal = MMWL_testSourceConfig(deviceMap);
-    if (retVal != RL_RET_CODE_OK)
-    {
-        printf("Test Source Configuration failed with error %d \n\n", retVal);
-        return -1;
-    }
-    else
-    {
-        printf("Test source Configuration success\n\n");
-    }
+		if (retVal != RL_RET_CODE_OK)
+		{
+			printf("Adv Frame Configuration failed with error %d \n", retVal);
+			return -1;
+		}
+		else
+		{
+			printf(">>>>Adv Frame Configuration success \n");
+		}
+	}
+#else
+	{
+		/*  \subsection     api_sequence11     Seq 11 - FMCW frame configuration
+		A frame defines sequence of chirps and how this sequence needs to be repeated over time.
+		*/
+		retVal = MMWL_frameConfig(deviceMap);
+		if (retVal != RL_RET_CODE_OK)
+		{
+			printf("Frame Configuration failed with error %d \n", retVal);
+			return -1;
+		}
+		else
+		{
+			printf(">>>>Frame Configuration success\n");
+		}
+	}
 #endif
-
-    /* Check for If Advance Frame Test is enabled */
-    if(gLinkAdvanceFrameTest == FALSE)
-    {
-        /*  \subsection     api_sequence11     Seq 11 - FMCW frame configuration
-        A frame defines sequence of chirps and how this sequence needs to be repeated over time.
-        */
-        retVal = MMWL_frameConfig(deviceMap);
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Frame Configuration failed with error %d \n", retVal);
-            return -1;
-        }
-        else
-        {
-            printf(">>>>Frame Configuration success\n");
-        }
-    }
-    else
-    {
-        /*  \subsection     api_sequence11     Seq 11 - FMCW Advance frame configuration
-        A frame defines sequence of chirps and how this sequence needs to be repeated over time.
-        */
-        retVal = MMWL_advFrameConfig(deviceMap);
-
-        if (retVal != RL_RET_CODE_OK)
-        {
-            printf("Adv Frame Configuration failed with error %d \n", retVal);
-            return -1;
-        }
-        else
-        {
-            printf(">>>>Adv Frame Configuration success \n");
-        }
-    }
 
     /*if (gLinkContModeTest == TRUE)
     {
@@ -2529,12 +2098,15 @@ int MMWL_App()
         }
     }*/
 
-
-	printf("\n=============================GPAdc Config===========================\n\n");
+	// ========================================
+	printf("\n========================Toggle Sensor Frame=============================\n\n");
+	triggerSensorLoop(deviceMap);
+	// ========================================
 
 	/* Note- Before Calling this API user must feed in input signal to device's pins,
 	else device will return garbage data in GPAdc measurement over Async event.
 	Measurement data is stored in 'rcvGpAdcData' structure after this API call. */
+	/*printf("\n=============================GPAdc Config===========================\n\n");
 	retVal = MMWL_gpadcMeasConfig(deviceMap);
 	if (retVal != RL_RET_CODE_OK)
 	{
@@ -2544,15 +2116,9 @@ int MMWL_App()
 	else
 	{
 		printf(">>>>GPAdc measurement API success\n\n");
-	}
-
-	// ========================================
-	triggerSensorLoop(deviceMap);
-	// ========================================
+	}*/
 
 	printf("\n=============================Device Power Off===========================\n\n");
-
-    /* Switch off the device */
     retVal = MMWL_powerOff(deviceMap);
     if (retVal != RL_RET_CODE_OK)
     {
@@ -2563,10 +2129,8 @@ int MMWL_App()
     {
         printf(">>>>Device power off success\n\n");
     }
-
+	
 	printf("\n=============================Close Config File===========================\n\n");
-
-    /* Close Configuraiton file */
     MMWL_closeConfigFile();
 
 #ifdef CONTROL_BY_SOCKET
@@ -2577,14 +2141,6 @@ int MMWL_App()
     return 0;
 }
 
-/** @fn int main()
-*
-*   @brief Main function.
-*
-*   @return none
-*
-*   Main function.
-*/
 void main(void)
 {
     int retVal;

@@ -14,7 +14,7 @@ cascading=0;
 # =b2AdcBits: 0(12 Bits), 1(14 Bits), 2(16 Bits)
 adcBits=2;
 # =b2AdcOutFmt: 0(Real), 1(Complex), 2(Complex with Image band), 3(Pseudo Real)
-adcFormat=1;
+adcFormat=2;
 
 # rxChanEn: 15=(1111)
 # adcFmt: 0(Real), 1(Complex), 2(Complex with Image band), 3(Pseudo Real)
@@ -23,7 +23,7 @@ adcFormat=1;
 rxChanEn=15;
 # =adcBits: 0(12 Bits), 1(1=4 Bits), 2(16 Bits)
 adcBitsD=2;
-adcFmt=1;
+adcFmt=2;
 iqSwapSel=0;
 chInterleave=1;
 
