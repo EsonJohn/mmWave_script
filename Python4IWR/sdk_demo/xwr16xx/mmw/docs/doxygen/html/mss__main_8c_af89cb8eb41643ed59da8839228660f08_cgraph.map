@@ -1,0 +1,8 @@
+<map id="MmwDemo_stopSensor" name="MmwDemo_stopSensor">
+<area shape="rect" id="node2" href="$mmw__lvds__stream_8c.html#a9ad7d1aad29c6059abb9346f4dcaf5c9" title="MmwDemo_LVDSStreamDelete\lHwSession" alt="" coords="216,5,427,47"/>
+<area shape="rect" id="node3" href="$mmw__lvds__stream_8c.html#a4495f436409171857d20aa3cd7ef6802" title="MmwDemo_LVDSStreamDelete\lSwSession" alt="" coords="216,71,427,112"/>
+<area shape="rect" id="node4" href="$mss__main_8c.html#ae5e2bb4a631836848ae1f61db2e6c9e2" title="MmwDemo_mmWaveCtrlStop" alt="" coords="221,137,421,163"/>
+<area shape="rect" id="node7" href="$mss__main_8c.html#ab8421a277c8dad30a9e913e253c55a96" title="MmwDemo_sensorStopEpilog" alt="" coords="222,187,421,214"/>
+<area shape="rect" id="node5" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/mmwave/docs/mmwave.tag$group___m_m_w_a_v_e___c_t_r_l___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#gab01615f3c8764a3e638a6d5261733e55" title="MMWave_decodeError" alt="" coords="475,111,629,138"/>
+<area shape="rect" id="node6" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/mmwave/docs/mmwave.tag$group___m_m_w_a_v_e___c_t_r_l___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga923b000ece4cf70386391d335f344791" title="MMWave_stop" alt="" coords="497,162,607,189"/>
+</map>

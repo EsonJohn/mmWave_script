@@ -1,0 +1,10 @@
+<map id="MmwDemo_DPC_ObjDet_DynCfg_t" name="MmwDemo_DPC_ObjDet_DynCfg_t">
+<area shape="rect" id="node2" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$struct_d_p_c___object_detection___dyn_cfg__t.html" title="DPC_ObjectDetection\l_DynCfg_t" alt="" coords="452,195,604,237"/>
+<area shape="rect" id="node3" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/dpu/cfarcaproc/docs/cfarcaproc.tag$struct_d_p_u___c_f_a_r_c_a_proc___cfar_cfg__t.html" title="DPU_CFARCAProc_CfarCfg_t" alt="" coords="25,20,230,47"/>
+<area shape="rect" id="node4" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpu/rangeproc/docs/rangeproc.tag$struct_d_p_u___range_proc___calib_dc_range_sig_cfg__t.html" title="DPU_RangeProc_CalibDcRange\lSigCfg_t" alt="" coords="20,71,235,113"/>
+<area shape="rect" id="node5" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/dpu/cfarcaproc/docs/cfarcaproc.tag$struct_d_p_u___c_f_a_r_c_a_proc___fov_cfg__t.html" title="DPU_CFARCAProc_FovCfg_t" alt="" coords="26,137,229,164"/>
+<area shape="rect" id="node6" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$struct_d_p_c___object_detection___static_clutter_removal_cfg___base__t.html" title="DPC_ObjectDetection\l_StaticClutterRemovalCfg\l_Base_t" alt="" coords="40,188,215,244"/>
+<area shape="rect" id="node7" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/dpu/aoaproc/docs/aoaproc.tag$struct_d_p_u___ao_a_proc___extended_max_velocity_cfg__t.html" title="DPU_AoAProc_ExtendedMaxVelocity\lCfg_t" alt="" coords="5,267,249,309"/>
+<area shape="rect" id="node8" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/dpu/aoaproc/docs/aoaproc.tag$struct_d_p_u___ao_a_proc___fov_aoa_cfg__t.html" title="DPU_AoAProc_FovAoaCfg_t" alt="" coords="30,333,225,360"/>
+<area shape="rect" id="node9" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/dpu/aoaproc/docs/aoaproc.tag$struct_d_p_u___ao_a_proc___multi_obj_beam_forming_cfg__t.html" title="DPU_AoAProc_MultiObjBeam\lFormingCfg_t" alt="" coords="28,385,227,426"/>
+</map>

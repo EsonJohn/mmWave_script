@@ -1,0 +1,8 @@
+<map id="MmwDemo_openSensor" name="MmwDemo_openSensor">
+<area shape="rect" id="node2" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/mmwave/docs/mmwave.tag$group___m_m_w_a_v_e___c_t_r_l___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#gab01615f3c8764a3e638a6d5261733e55" title="MMWave_decodeError" alt="" coords="232,5,387,32"/>
+<area shape="rect" id="node3" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/mmwave/docs/mmwave.tag$group___m_m_w_a_v_e___c_t_r_l___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga25b26d4188ab3d533bc6ff3aa62a88f3" title="MMWave_open" alt="" coords="253,56,366,83"/>
+<area shape="rect" id="node4" href="$mss__main_8c.html#a0f2fee652f39abc057c915af7e28ce2c" title="MmwDemo_dataPathOpen" alt="" coords="220,107,399,133"/>
+<area shape="rect" id="node7" href="$mss__main_8c.html#a95b554e7d257c8e22bd722392281510c" title="MmwDemo_mssSetHsiClk" alt="" coords="219,157,400,184"/>
+<area shape="rect" id="node5" href="$group___m_m_w_d_e_m_o___a_d_c_c_o_n_f_i_g___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga5f46e362a907ab7ef44a853470d8cecc" title="MmwDemo_ADCBufOpen" alt="" coords="448,107,624,133"/>
+<area shape="rect" id="node6" href="$group___m_m_w_d_e_m_o___a_d_c_c_o_n_f_i_g___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga2dd176a20e22370c0b1c76f81c7705aa" title="MmwDemo_ADCBufConfig" alt="" coords="672,107,855,133"/>
+</map>

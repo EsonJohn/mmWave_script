@@ -1,0 +1,4 @@
+<map id="Mmwdemo ADC Config External" name="Mmwdemo ADC Config External">
+<area shape="rect" id="node2" href="$group___m_m_w_d_e_m_o___a_d_c_c_o_n_f_i_g___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html" title="The section has a list of all internal API which are not exposed to the external applications. " alt="" coords="215,5,360,47"/>
+<area shape="rect" id="node3" href="$group___m_m_w_d_e_m_o___a_d_c_c_o_n_f_i_g___e_x_t_e_r_n_a_l___d_a_t_a___s_t_r_u_c_t_u_r_e.html" title="The section has a list of all external data structures which are used internally by the ADC Config mo..." alt="" coords="215,71,360,112"/>
+</map>

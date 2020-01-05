@@ -1,0 +1,8 @@
+<map id="xwr16xx/mmw/include/mmw_output.h" name="xwr16xx/mmw/include/mmw_output.h">
+<area shape="rect" id="node2" href="$sys__common_8h.html" title="This is the common header file used by the various mmWave SDK modules. " alt="" coords="175,102,351,129"/>
+<area shape="rect" id="node10" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$objectdetection_8h.html" title="ti/datapath/dpc/objectdetection\l/objdetdsp/objectdetection.h" alt="" coords="375,95,575,136"/>
+<area shape="rect" id="node3" href="$sys__types_8h.html" title="This is the common header file that contains types for mmwave SDK. " alt="" coords="5,191,164,218"/>
+<area shape="rect" id="node7" href="$sys__common__xwr16xx_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16XX device..." alt="" coords="363,184,529,225"/>
+<area shape="rect" id="node8" href="$sys__common__xwr16xx__mss_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16xx Master subsystem..." alt="" coords="285,273,450,315"/>
+<area shape="rect" id="node9" href="$sys__common__xwr16xx__dss_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16xx DSP subsystem..." alt="" coords="474,273,639,315"/>
+</map>

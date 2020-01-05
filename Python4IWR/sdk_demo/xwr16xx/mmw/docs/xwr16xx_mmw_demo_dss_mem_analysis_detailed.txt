@@ -1,0 +1,36 @@
+                                   OVERVIEW                                    
+Memory                              Used               Total        Percent Used
+--------------------------------------------------------------------------------
+PAGE 0:
+HSRAM                              32768               32768             100.00%
+L1DSRAM                            16384               16384             100.00%
+L1PSRAM                                0               16384               0.00%
+L2SRAM_UMAP0                      110546              131072              84.34%
+L2SRAM_UMAP1                      131072              131072             100.00%
+L3SRAM                            786432              786432             100.00%
+PAGE 1:
+L3SRAM                                 0              786432               0.00%
+
+
+                            Type              HSRAM      L1DSRAM      L1PSRAM L2SRAM_UMAP0 L2SRAM_UMAP1       L3SRAM
+--------------------------------------------------------------------------------
+ALG                         code                  0            0            0          256        12320            0
+ALG                         data                  0            0            0         2272            0            0
+APP                         code                  0            0            0         2960         5504            0
+APP                         data                  0            0            0        19567            0            0
+APP                         heap              32768        16384            0        70656            0       786432
+BIOS                        code                  0            0            0         3264        43520            0
+BIOS                        data                  0            0            0         1588            0            0
+BIOS_OSAL                   code                  0            0            0          544          704            0
+BIOS_OSAL                   data                  0            0            0           60            0            0
+C_RUNTIME                   code                  0            0            0         1248        12576            0
+C_RUNTIME                   data                  0            0            0          948            0            0
+C_RUNTIME                   heap                  0            0            0            8            0            0
+DPC                         code                  0            0            0          120        11968            0
+DPC                         data                  0            0            0          600            0            0
+DPM                         code                  0            0            0          584         6080            0
+DPM                         data                  0            0            0          140            0            0
+DPU                         code                  0            0            0          200        24224            0
+DRIVERS_CORE                code                  0            0            0         1664        14176            0
+DRIVERS_CORE                data                  0            0            0         1811            0            0
+linker-generated            linker                0            0            0         2056            0            0
