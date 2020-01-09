@@ -3,7 +3,8 @@ import os, sys
 def parameter_hint():
     print("Parameters format:\n\
                 python run.py [DCA_cfg_file] [file_prefix] -b [b1]...[bn] -r [r1]...[rm]\n\
-            e.g., python run.py cf.json Data/eson -b 6 5 5 5 -r 1 1 2 1")
+            e.g., python run.py cf.json eson -b 6 5 5 5 -r 1 1 2 1\n\
+                Note: DO NOT add directory to file_prefix, default to ./Data directory.")
 
 def check_parameter(argv):
     is_legal = True
