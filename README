@@ -2,15 +2,20 @@ Prerequisites:
 OS: Windows;
 Devices: TI IWR1642BOOST + DCA1000EVM;
 Device connection: Figure 19 in DCA1000EVM User Guide (http://www.ti.com/lit/ug/spruij4a/spruij4a.pdf);
+IWR1642 Firmware: mmWave Demo image (refer to mmwave_sdk_user_guide.pdf);
 IWR1642BOOST mode: SOP-4 mode (Table 4 in http://www.ti.com/lit/ug/swru521b/swru521b.pdf);
 
 Files Description:
 \DCA1000: Scripts and binaries to connect, configure and trigger DCA1000EVM;
 \DCA1000\Custom-build: urrently used scripts and binaries for DCA manipulation;
-\DCA1000\Pre-build: Archived, pre-build binary script by TI co.;
-\IWR1642: Scripts and binaries to connect, configure and trigger IWR1642BOOST;
-\IWR1642\ti\example\mmwavelink_example: Currently used scripts and binaries to manipulate IWR1642BOOST;
-\LUAShell: Archived, lua shell to configure and trigger frames, invoke by mmWave Studio;
+\DCA1000\Pre-build: [Abandoned] Pre-build binary script by TI co.;
+\Python4IWR: Python script to config and trigger IWR1642BOOSt;
+\Python4IWR\config_and_wait_key.py: Currently used IWR config and trigger script;
+\Python4IWR\cfg: Currently used IWR configuration file;
+\IWR1642: [Abandoned] Scripts and binaries to connect, configure and trigger IWR1642BOOST;
+\IWR1642\ti\example\mmwavelink_example: [Abandoned] Scripts and binaries to manipulate IWR1642BOOST;
+\LUAShell: [Abandoned] Lua shell to configure and trigger frames, invoke by mmWave Studio;
+
 
 Usage:
 1.Connect and power on DCA+IWR devices
@@ -22,10 +27,13 @@ If success status is returned by last step, then:
 5.Run DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]
 [file_prefix] should be sustituted with your own file prefix
 If success status is returned by last step, then:
-6.Open another cmd and change to IWR1642\ti\example\mmwavelink_example\Debug\
-7.Run mmwavelink_example.exe
+6.Open another cmd and change to Python4IWR\
+7.Run config_and_wait_key.py with python3
 This script will automatically connect and configure IWR1642BOOST, and wait for command to traigger frames
-If success status is returned by last step, then:
 8.Press Enter key to trigger mmwave frames
 9.Press Enter key again to stop mmwave frames
 10.Check DCA1000\Custom-build\Release\Data folder for captured data
+If you want to switch file prefix incrementally, try to use DCA1000\PCustom-build\run.py after step-4;
+
+Cheers!
+Author: Yi Zhang (zhangyibupt@163.com)
