@@ -75,7 +75,8 @@
 #define DSP_DATA_4_INDEX					4
 
 /** Raw Mode file name                                                       */
-#define RAW_MODE_FILE_NAME                  "_Raw_"
+// #define RAW_MODE_FILE_NAME                  "_Raw_"
+#define RAW_MODE_FILE_NAME                  ""
 
 /** MULTI Mode file name                                                       */
 #define MULTI_MODE_FILE_NAME                "_hdr_"

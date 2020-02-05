@@ -1634,7 +1634,7 @@ strStartRecConfigMode sStartRecConfigMode
         u8LaneNumber = 4;
 
     /** Logging the record configuration in log file */
-    WriteRecordSettingsInLogFile();
+    // WriteRecordSettingsInLogFile();
 
     /** Resetting the inline stats structure */
     for(int i = 0; i < NUM_DATA_TYPES; i++)
@@ -1882,7 +1882,7 @@ void
     DEBUG_FILE_WRITE(s8DebugMsg);
 #endif
 
-            WriteInlineProcSummaryInLogFile();
+            // WriteInlineProcSummaryInLogFile();
 
             RFDCARD_Callback(STS_CLI_REC_PROC_STOP_FAILED, 0);
 
@@ -1895,7 +1895,7 @@ void
     DEBUG_FILE_WRITE(s8DebugMsg);
 #endif
 
-            WriteInlineProcSummaryInLogFile();
+            // WriteInlineProcSummaryInLogFile();
 
             RFDCARD_Callback(STS_CLI_REC_PROC_STOPPED, 0);
 
@@ -2257,7 +2257,7 @@ void WriteRecordSettingsInLogFile()
     {
         strcat(s8LogMsg, MULTI_MODE_FILE_NAME);
     }
-    strcat(s8LogMsg, "LogFile.csv");
+    strcat(s8LogMsg, "_LogFile.csv");
     s8LogMsg[strlen(s8LogMsg)] = '\0';
 
     pInlineLogFile = fopen(s8LogMsg, "w");
