@@ -33,6 +33,7 @@ This script will automatically connect and configure IWR1642BOOST, and wait for 
 8.Press Enter key to trigger mmwave frames
 9.Press Enter key again to stop mmwave frames
 10.Check DCA1000\Custom-build\Release\Data folder for captured data
+If the DCA executable file can not run on your platform, please rebuild them from source code.
 If you want to switch file prefix incrementally, try to use DCA1000\PCustom-build\run.py after step-4;
 
 Cheers!
