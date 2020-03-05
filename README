@@ -7,19 +7,18 @@ IWR1642BOOST mode: SOP-4 mode (Table 4 in http://www.ti.com/lit/ug/swru521b/swru
 
 Files Description:
 \DCA1000: Scripts and binaries to connect, configure and trigger DCA1000EVM;
-\DCA1000\Custom-build: urrently used scripts and binaries for DCA manipulation;
+\DCA1000\Custom-build: currently used scripts and binaries for DCA manipulation;
 \DCA1000\Pre-build: [Abandoned] Pre-build binary script by TI co.;
 \Python4IWR: Python script to config and trigger IWR1642BOOSt;
 \Python4IWR\config_and_wait_key.py: Currently used IWR config and trigger script;
 \Python4IWR\cfg: Currently used IWR configuration file;
 \IWR1642: [Abandoned] Scripts and binaries to connect, configure and trigger IWR1642BOOST;
-\IWR1642\ti\example\mmwavelink_example: [Abandoned] Scripts and binaries to manipulate IWR1642BOOST;
 \LUAShell: [Abandoned] Lua shell to configure and trigger frames, invoke by mmWave Studio;
 
 
 Usage:
 1.Connect and power on DCA+IWR devices
-2.Open cmd and change to DCA1000\Custom-build\Release\
+2.Open cmd and change to DCA1000\Custom-build\Release\ directory
 3.Run DCA1000EVM_CLI_Control.exe fpga cf.json
 This script will automatically connect and configure DCA1000
 If success status is returned by last step, then:
@@ -29,7 +28,7 @@ If success status is returned by last step, then:
 If success status is returned by last step, then:
 6.Open another cmd and change to Python4IWR\
 7.Run config_and_wait_key.py with python3
-This script will automatically connect and configure IWR1642BOOST, and wait for command to traigger frames
+This script will automatically connect and configure IWR1642BOOST, and wait for keyboard input to traigger frames
 8.Press Enter key to trigger mmwave frames
 9.Press Enter key again to stop mmwave frames
 10.Check DCA1000\Custom-build\Release\Data folder for captured data
