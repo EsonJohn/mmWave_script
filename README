@@ -1,39 +1,39 @@
 Prerequisites:
 OS: Windows;
 Devices: TI IWR1642BOOST + DCA1000EVM;
-Device connection: Figure 19 in DCA1000EVM User Guide (http://www.ti.com/lit/ug/spruij4a/spruij4a.pdf);
-IWR1642 Firmware: mmWave Demo image (refer to mmwave_sdk_user_guide.pdf);
-IWR1642BOOST mode: SOP-4 mode (Table 4 in http://www.ti.com/lit/ug/swru521b/swru521b.pdf);
+Device connection: Figure 19 in DCA1000EVM User Guide (./Doc/DCA1000EVM User Guide.pdf);
+IWR1642 Firmware: mmWave Demo image (page 8-9 in ./Doc/mmWave Sdk User Guide.pdf);
+IWR1642BOOST mode: SOP-4 mode (Table 4 in ./Doc/IWR1642BOOST User Guide.pdf);
+MinGW tool installed (http://www.mingw.org/);
+Build your own DCA1000 executable in ./DCA1000/Custom-build with MinGW tool;
+
 
 Files Description:
-\DCA1000: Scripts and binaries to connect, configure and trigger DCA1000EVM;
-\DCA1000\Custom-build: currently used scripts and binaries for DCA manipulation;
-\DCA1000\Pre-build: [Abandoned] Pre-build binary script by TI co.;
-\Python4IWR: Python script to config and trigger IWR1642BOOSt;
-\Python4IWR\config_and_wait_key.py: Currently used IWR config and trigger script;
-\Python4IWR\cfg: Currently used IWR configuration file;
-\IWR1642: [Abandoned] Scripts and binaries to connect, configure and trigger IWR1642BOOST;
-\LUAShell: [Abandoned] Lua shell to configure and trigger frames, invoke by mmWave Studio;
+./DCA1000/Custom-build/Release: executable for DCA1000 build on your own PC;
+./Python4IWR: Python script for IWR1642BOOST;
+./Python4IWR/cfg: IWR1642BOOST configuration file in which profile.cfg is in use (the meaning of fields are in page 18-31 of ./Doc/mmWave Sdk User Guide.pdf);
+./Python4IWR/config_and_wait_key.py: Config IWR1642BOOST and wait for ENTER key to toggle sensors;
+Others: Do NOT modify or delete;
 
 
 Usage:
 1.Connect and power on DCA+IWR devices
-2.Open cmd and change to DCA1000\Custom-build\Release\ directory
-3.Run DCA1000EVM_CLI_Control.exe fpga cf.json
+2.Open cmd and change to ./DCA1000/Custom-build/Release/ (make sure that you have built ./DCA1000/Custom-build with MinGW)
+3.Run 'DCA1000EVM_CLI_Control.exe fpga cf.json'
 This script will automatically connect and configure DCA1000
-If success status is returned by last step, then:
-4.Create Data/ folder in current directory, which will be used to store captured data
-5.Run DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]
+If success, then:
+4.Create Data/ folder in ./DCA1000/Custom-build/Release/, which will be used to store the captured data
+5.Run 'DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]'
 [file_prefix] should be sustituted with your own file prefix
-If success status is returned by last step, then:
+If success, then:
 6.Open another cmd and change to Python4IWR\
 7.Run config_and_wait_key.py with python3
-This script will automatically connect and configure IWR1642BOOST, and wait for keyboard input to traigger frames
-8.Press Enter key to trigger mmwave frames
-9.Press Enter key again to stop mmwave frames
-10.Check DCA1000\Custom-build\Release\Data folder for captured data
-If the DCA executable file can not run on your platform, please rebuild them from source code.
-If you want to switch file prefix incrementally, try to use DCA1000\PCustom-build\run.py after step-4;
+This script will automatically connect and configure IWR1642BOOST with ./Python4IWR/cfg/profile.cfg, and wait for ENTER key to toggle sensor
+8.Press Enter key to start mmwave sensor
+9.Press Enter key again to stop mmwave sensor
+10.Check ./DCA1000/Custom-build/Release/Data folder for captured data
+NOTE:
+Build your own DCA1000 executable with MinGW tool, otherwise the DCA1000 would not work.
 
 Cheers!
 Author: Yi Zhang (zhangyibupt@163.com)
