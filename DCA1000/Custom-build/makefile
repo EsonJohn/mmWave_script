@@ -9,14 +9,14 @@ SOURCES_REC	= CLI_Record/cli_record_main.cpp Common/Json_Utils/dist/jsoncpp.cpp 
 DIRECTORY 	= Release
 
 ifeq ($(OS),Windows_NT)
-	RM = del /Q
-	SOURCES_OSAL= Common/Osal_Utils/osal_win.cpp
+	RM = del \/Q
+	SOURCES_OSAL= Common\\Osal_Utils\\osal_win.cpp
 	LDFLAGS_DLL = -lws2_32
-	LDFLAGS_EXE = -L Release/. -lRF_API -lws2_32
+	LDFLAGS_EXE = -L Release\\. -lRF_API -lws2_32
 	LDFLAGS_PTHREAD = 
-	TARGET_DLL = Release/RF_API.dll
-	TARGET_CTRL = Release/DCA1000EVM_CLI_Control.exe
-	TARGET_REC = Release/DCA1000EVM_CLI_Record.exe
+	TARGET_DLL = Release\\RF_API.dll
+	TARGET_CTRL = Release\\DCA1000EVM_CLI_Control.exe
+	TARGET_REC = Release\\DCA1000EVM_CLI_Record.exe
 	TARGET_DIR = mkdir $@
 else
 	RM = rm -f

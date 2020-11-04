@@ -15,6 +15,15 @@ Files Description:
 ./Python4IWR/config_and_wait_key.py: Config IWR1642BOOST and wait for ENTER key to toggle sensors;
 Others: Do NOT modify or delete;
 
+Build ./DCA1000/Custom-build with MinGW tool:
+1. Download and install mingw-get-setup.exe from http://www.mingw.org/wiki/Getting_Started;
+2. Add C:\MinGW\bin to system path (suppose your mingw is installed in C:\MinGW);
+3. Install mingw32-make, gcc, g++ with the following command (users from CN should bypass the GFW):
+"mingw-get install mingw32-make gcc g++"
+4. Open cmd as Admin and switch to ./DCA1000/Custom-build directory;
+5. Run "mingw32-make clean";
+6. Run "mingw32-make" to build;
+7. Check ./DCA1000/Custom-build/Release for the files DCA1000EVM_CLI_Record.exe and DCA1000EVM_CLI_Control.exe;
 
 Usage:
 1.Connect and power on DCA+IWR devices

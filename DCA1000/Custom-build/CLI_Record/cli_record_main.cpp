@@ -60,7 +60,7 @@
 ///****************
 #define WINVER 0x0A00
 #define _WIN32_WINNT 0x0A00
-#include "mingw.thread.h"
+#include "../RF_API/mingw.thread.h"
 
 #include <stdio.h>
 #include <stdlib.h>
