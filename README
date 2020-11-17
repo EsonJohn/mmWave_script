@@ -1,3 +1,8 @@
+This repository contains scripts to capture raw data without mmWave Studio from TI's DCA1000EVM+IWR1642BOOST mmWave sensors.
+You may custom your own data capturing and processing applications based on this repo.
+Should you have any questions, feel free to contact me by zhangyithu@163.com.
+Enjoy~
+
 Prerequisites:
 OS: Windows;
 Devices: TI IWR1642BOOST + DCA1000EVM;
