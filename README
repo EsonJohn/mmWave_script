@@ -23,31 +23,29 @@ Others: Do NOT modify or delete;
 Build ./DCA1000/Custom-build with MinGW tool:
 1. Download and install mingw-get-setup.exe from http://www.mingw.org/wiki/Getting_Started;
 2. Add C:\MinGW\bin to system path (suppose your mingw is installed in C:\MinGW);
-3. Install mingw32-make, gcc, g++ with the following command (users from CN should bypass the GFW):
+3. Install mingw32-make, gcc, g++ with the following command (users from China should bypass the Great Firewall (GFW)):
 "mingw-get install mingw32-make gcc g++"
-4. Open cmd as Admin and switch to ./DCA1000/Custom-build directory;
+4. Open cmd prompt as Admin and switch to ./DCA1000/Custom-build directory;
 5. Run "mingw32-make clean";
-6. Run "mingw32-make" to build;
-7. Check ./DCA1000/Custom-build/Release for the files DCA1000EVM_CLI_Record.exe and DCA1000EVM_CLI_Control.exe;
+6. Run "mingw32-make";
+7. Check out ./DCA1000/Custom-build/Release for the files DCA1000EVM_CLI_Record.exe and DCA1000EVM_CLI_Control.exe;
 
 Usage:
-1.Connect and power on DCA+IWR devices
-2.Open cmd and change to ./DCA1000/Custom-build/Release/ (make sure that you have built ./DCA1000/Custom-build with MinGW)
-3.Run 'DCA1000EVM_CLI_Control.exe fpga cf.json'
-This script will automatically connect and configure DCA1000
+1.Connect and power on DCA+IWR devices;
+2.Open cmd prompt and change to ./DCA1000/Custom-build/Release/ (make sure that you have built ./DCA1000/Custom-build with MinGW);
+3.Run 'DCA1000EVM_CLI_Control.exe fpga cf.json';
+This script will automatically connect and configure DCA1000;
 If success, then:
-4.Create Data/ folder in ./DCA1000/Custom-build/Release/, which will be used to store the captured data
-5.Run 'DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]'
-[file_prefix] should be sustituted with your own file prefix
+4.Create Data/ folder in ./DCA1000/Custom-build/Release/, which will be used to store the captured data;
+5.Run 'DCA1000EVM_CLI_Record.exe start_record cf.json [file_prefix]';
+[file_prefix] should be sustituted with your own file prefix, e.g., 'DCA1000EVM_CLI_Record.exe start_record cf.json Alice';
 If success, then:
-6.Open another cmd and change to Python4IWR\
-7.Run config_and_wait_key.py with python3
-This script will automatically connect and configure IWR1642BOOST with ./Python4IWR/cfg/profile.cfg, and wait for ENTER key to toggle sensor
-8.Press Enter key to start mmwave sensor
-9.Press Enter key again to stop mmwave sensor
-10.Check ./DCA1000/Custom-build/Release/Data folder for captured data
-NOTE:
-Build your own DCA1000 executable with MinGW tool, otherwise the DCA1000 would not work.
+6.Open another cmd prompt and change to Python4IWR/;
+7.Run config_and_wait_key.py with python3;
+This script will automatically connect and configure IWR1642BOOST with ./Python4IWR/cfg/profile.cfg configuration file, and wait for ENTER key to toggle sensor;
+8.Press Enter key to start mmwave sensor;
+9.Press Enter key again to stop mmwave sensor;
+10.Check ./DCA1000/Custom-build/Release/Data folder for captured data;
 
 Cheers!
-Author: Yi Zhang (zhangyibupt@163.com)
+Author: Yi Zhang (zhangyithu@163.com)
