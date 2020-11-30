@@ -1,0 +1,19 @@
+                                   OVERVIEW                                    
+Memory                              Used               Total        Percent Used
+--------------------------------------------------------------------------------
+DATA_RAM                           57636              196608              29.32%
+HS_RAM                                 0               32768               0.00%
+L3_RAM                                 0              786432               0.00%
+PROG_RAM                          114750              261888              43.82%
+VECTORS                               60                 256              23.44%
+
+
+                            Type           DATA_RAM       HS_RAM       L3_RAM     PROG_RAM      VECTORS
+--------------------------------------------------------------------------------
+APP                         code              16864            0            0        45717           60
+APP                         heap              34816            0            0            0            0
+BIOS                        code                  4            0            0        22443            0
+COMPONENTS_CORE             code               1668            0            0        29996            0
+COMPONENTS_OPTIONAL         code               2236            0            0        15086            0
+linker-generated            linker             2048            0            0          327            0
+linker-generated            unknown               0            0            0         1181            0

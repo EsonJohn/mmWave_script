@@ -1,0 +1,20 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$dss__main_8c.html#a4ad6f3ad3da43b07c76540d0c9c09e07" title="MmwDemo_dssInitTask" alt="" coords="104,213,268,240"/>
+<area shape="rect" id="node3" href="$data__path_8c.html#a38a7c31b214ed4095d27a840358f8ebc" title="MmwDemo_dataPathInit" alt="" coords="356,5,523,32"/>
+<area shape="rect" id="node5" href="$data__path_8c.html#a2f152ebfe2c6ccb710685f8fed19fd01" title="MmwDemo_dataPathOpen" alt="" coords="350,56,529,83"/>
+<area shape="rect" id="node9" href="$dss__main_8c.html#a155c7ec75338c9fe583292ded067ec5c" title="MmwDemo_DPC_ObjectDetection\l_processFrameBeginCallBackFxn" alt="" coords="326,107,553,149"/>
+<area shape="rect" id="node10" href="$dss__main_8c.html#af7e0534f1573961df1eef79c4f7f22a3" title="MmwDemo_DPC_ObjectDetection\l_processInterFrameBeginCallBackFxn" alt="" coords="316,238,563,279"/>
+<area shape="rect" id="node13" href="$dss__main_8c.html#adcd6ce467b921bea15a436519a1f9614" title="MmwDemo_DPC_ObjectDetection\l_reportFxn" alt="" coords="326,173,553,214"/>
+<area shape="rect" id="node15" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/dpm/docs/dpm.tag$group___d_p_m___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga4b9d232412d832c17c606c733792ab2c" title="DPM_init" alt="" coords="401,304,477,331"/>
+<area shape="rect" id="node16" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/dpm/docs/dpm.tag$group___d_p_m___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga8a12bc44690b361112139cc996de405d" title="DPM_synch" alt="" coords="392,355,487,381"/>
+<area shape="rect" id="node17" href="$dss__main_8c.html#a6f404d4ba8b95e3cb6eb4add70be54a9" title="MmwDemo_DPC_ObjectDetection\l_dpmTask" alt="" coords="326,406,553,447"/>
+<area shape="rect" id="node4" href="$data__path_8c.html#add2b6a63fb8fa199886886a5a227c3d1" title="MmwDemo_edmaInit" alt="" coords="650,5,797,32"/>
+<area shape="rect" id="node6" href="$data__path_8c.html#a35af8b298b0514253d7da55850ebcee9" title="MmwDemo_edmaOpen" alt="" coords="644,56,803,83"/>
+<area shape="rect" id="node7" href="$data__path_8c.html#a89a15b56fb6d936737537372be6a7d4c" title="MmwDemo_EDMA_errorCallbackFxn" alt="" coords="885,85,1126,112"/>
+<area shape="rect" id="node8" href="$data__path_8c.html#a9b31a42f3f040f1571ca19ca0ea0cbde" title="MmwDemo_EDMA_transferController\lErrorCallbackFxn" alt="" coords="884,19,1127,61"/>
+<area shape="rect" id="node11" href="$dss__main_8c.html#a1f246935304ec26bff78637539d8c3c7" title="MmwDemo_updateObjectDetStats" alt="" coords="611,312,836,339"/>
+<area shape="rect" id="node12" href="$dss__main_8c.html#aa1aa9961e660df01a7b5455740529ce7" title="MmwDemo_copyResultToHSRAM" alt="" coords="892,363,1119,389"/>
+<area shape="rect" id="node14" href="$dss__main_8c.html#ab8421a277c8dad30a9e913e253c55a96" title="MmwDemo_sensorStopEpilog" alt="" coords="624,180,823,207"/>
+<area shape="rect" id="node18" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/dpm/docs/dpm.tag$group___d_p_m___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga17f84ce510372851b222926b8c363941" title="DPM_execute" alt="" coords="671,464,776,491"/>
+<area shape="rect" id="node19" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/dpm/docs/dpm.tag$group___d_p_m___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga7677dbcfcd11917ba10373486c3bf004" title="DPM_sendResult" alt="" coords="661,363,786,389"/>
+</map>

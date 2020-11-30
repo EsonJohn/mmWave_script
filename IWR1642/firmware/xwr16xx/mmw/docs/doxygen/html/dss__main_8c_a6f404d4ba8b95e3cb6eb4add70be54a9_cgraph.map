@@ -1,0 +1,6 @@
+<map id="MmwDemo_DPC_ObjectDetection_dpmTask" name="MmwDemo_DPC_ObjectDetection_dpmTask">
+<area shape="rect" id="node2" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/dpm/docs/dpm.tag$group___d_p_m___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga17f84ce510372851b222926b8c363941" title="DPM_execute" alt="" coords="340,5,445,32"/>
+<area shape="rect" id="node3" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/dpm/docs/dpm.tag$group___d_p_m___e_x_t_e_r_n_a_l___f_u_n_c_t_i_o_n.html#ga7677dbcfcd11917ba10373486c3bf004" title="DPM_sendResult" alt="" coords="330,56,455,83"/>
+<area shape="rect" id="node4" href="$dss__main_8c.html#aa1aa9961e660df01a7b5455740529ce7" title="MmwDemo_copyResultToHSRAM" alt="" coords="553,132,780,159"/>
+<area shape="rect" id="node5" href="$dss__main_8c.html#a1f246935304ec26bff78637539d8c3c7" title="MmwDemo_updateObjectDetStats" alt="" coords="280,157,505,184"/>
+</map>

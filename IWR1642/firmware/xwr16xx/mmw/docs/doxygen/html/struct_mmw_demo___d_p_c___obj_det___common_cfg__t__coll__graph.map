@@ -1,0 +1,6 @@
+<map id="MmwDemo_DPC_ObjDet_CommonCfg_t" name="MmwDemo_DPC_ObjDet_CommonCfg_t">
+<area shape="rect" id="node2" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$struct_d_p_c___object_detection___pre_start_common_cfg__t.html" title="DPC_ObjectDetection\l_PreStartCommonCfg_t" alt="" coords="195,199,358,240"/>
+<area shape="rect" id="node3" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/dpu/aoaproc/docs/aoaproc.tag$struct_d_p_u___ao_a_proc__comp_rx_channel_bias_cfg__t.html" title="DPU_AoAProc_compRxChannel\lBiasCfg_t" alt="" coords="5,95,220,136"/>
+<area shape="rect" id="node4" href="$structcmplx16_im_re__t__.html" title="Complex data type, natural for C674x complex multiplication instructions. " alt="" coords="52,5,173,32"/>
+<area shape="rect" id="node5" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$struct_d_p_c___object_detection___measure_rx_channel_bias_cfg__t.html" title="DPC_ObjectDetection\l_MeasureRxChannelBiasCfg_t" alt="" coords="245,95,447,136"/>
+</map>

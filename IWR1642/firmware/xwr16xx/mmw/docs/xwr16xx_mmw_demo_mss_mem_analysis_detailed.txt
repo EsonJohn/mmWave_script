@@ -1,0 +1,31 @@
+                                   OVERVIEW                                    
+Memory                              Used               Total        Percent Used
+--------------------------------------------------------------------------------
+DATA_RAM                           57636              196608              29.32%
+HS_RAM                                 0               32768               0.00%
+L3_RAM                                 0              786432               0.00%
+PROG_RAM                          114750              261888              43.82%
+VECTORS                               60                 256              23.44%
+
+
+                            Type           DATA_RAM       HS_RAM       L3_RAM     PROG_RAM      VECTORS
+--------------------------------------------------------------------------------
+APP                         code                  0            0            0        32573           60
+APP                         data              16080            0            0         2543            0
+APP                         heap              34816            0            0            0            0
+BIOS                        code                  0            0            0        21625            0
+BIOS                        data                  4            0            0            0            0
+BIOS_OSAL                   code                  0            0            0          818            0
+C_RUNTIME                   code                  0            0            0        10192            0
+C_RUNTIME                   data                784            0            0          409            0
+DPU                         code                  0            0            0           48            0
+DRIVERS_CORE                code                  0            0            0        14092            0
+DRIVERS_CORE                data                404            0            0          128            0
+DRIVERS_OPTIONAL            code                  0            0            0        14954            0
+DRIVERS_OPTIONAL            data               2236            0            0          132            0
+MMWAVE                      code                  0            0            0         8010            0
+MMWAVE                      data                264            0            0            0            0
+MMWAVELINK                  code                  0            0            0         6886            0
+MMWAVELINK                  data               1000            0            0          832            0
+linker-generated            linker             2048            0            0          327            0
+linker-generated            unknown               0            0            0         1181            0

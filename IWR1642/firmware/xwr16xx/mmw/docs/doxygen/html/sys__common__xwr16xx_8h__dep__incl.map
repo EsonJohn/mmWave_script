@@ -1,0 +1,15 @@
+<map id="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/common/sys_common_xwr16xx.h" name="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/common/sys_common_xwr16xx.h">
+<area shape="rect" id="node2" href="$sys__common_8h.html" title="This is the common header file used by the various mmWave SDK modules. " alt="" coords="559,109,756,165"/>
+<area shape="rect" id="node3" href="$mmwdemo__rfparser_8c.html" title="Implements rf parser. " alt="" coords="5,221,181,247"/>
+<area shape="rect" id="node4" href="$mmwdemo__adcconfig_8c.html" title="Implements High level ADC open/config APIs. " alt="" coords="206,221,394,247"/>
+<area shape="rect" id="node5" href="$dss__main_8c.html" title="This is the main file which implements the millimeter wave Demo. " alt="" coords="1249,392,1407,433"/>
+<area shape="rect" id="node6" href="$mmw__config_8h.html" title="This is the header file that describes configurations for the Millimeter Wave Demo. " alt="" coords="581,213,733,255"/>
+<area shape="rect" id="node7" href="$mmw__cli_8c.html" title="xwr16xx/mmw/mss/mmw\l_cli.c" alt="" coords="403,392,575,433"/>
+<area shape="rect" id="node9" href="$mmw__lvds__stream_8c.html" title="Implements LVDS stream functionality. " alt="" coords="599,392,771,433"/>
+<area shape="rect" id="node10" href="$mss__main_8c.html" title="This is the main file which implements the millimeter wave Demo. " alt="" coords="825,392,991,433"/>
+<area shape="rect" id="node11" href="$mmw__output_8h.html" title="This is the interface/message header file for the Millimeter Wave Demo. " alt="" coords="1072,213,1224,255"/>
+<area shape="rect" id="node14" href="$mmw__res_8h.html" title="Defines partitioning of hardware resources (EDMA etc) among the DPCs and other components in the mill..." alt="" coords="819,310,997,337"/>
+<area shape="rect" id="node8" href="$mmw__mss_8h.html" title="This is the main header file for the Millimeter Wave Demo. " alt="" coords="571,303,743,344"/>
+<area shape="rect" id="node12" href="$mmw__dss_8h.html" title="This is the main header file for the Millimeter Wave Demo. " alt="" coords="1123,303,1291,344"/>
+<area shape="rect" id="node13" href="$data__path_8c.html" title="Implements Data path processing functionality. " alt="" coords="1039,392,1201,433"/>
+</map>

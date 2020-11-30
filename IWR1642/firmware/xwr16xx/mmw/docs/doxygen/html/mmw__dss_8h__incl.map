@@ -1,0 +1,9 @@
+<map id="xwr16xx/mmw/dss/mmw_dss.h" name="xwr16xx/mmw/dss/mmw_dss.h">
+<area shape="rect" id="node8" href="$mmw__output_8h.html" title="This is the interface/message header file for the Millimeter Wave Demo. " alt="" coords="1050,95,1207,136"/>
+<area shape="rect" id="node17" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$objectdetection_8h.html" title="ti/datapath/dpc/objectdetection\l/objdetdsp/objectdetection.h" alt="" coords="1145,184,1345,225"/>
+<area shape="rect" id="node9" href="$sys__common_8h.html" title="This is the common header file used by the various mmWave SDK modules. " alt="" coords="945,191,1121,218"/>
+<area shape="rect" id="node10" href="$sys__types_8h.html" title="This is the common header file that contains types for mmwave SDK. " alt="" coords="775,281,933,307"/>
+<area shape="rect" id="node14" href="$sys__common__xwr16xx_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16XX device..." alt="" coords="1133,273,1298,315"/>
+<area shape="rect" id="node15" href="$sys__common__xwr16xx__mss_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16xx Master subsystem..." alt="" coords="1054,363,1219,404"/>
+<area shape="rect" id="node16" href="$sys__common__xwr16xx__dss_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16xx DSP subsystem..." alt="" coords="1243,363,1409,404"/>
+</map>

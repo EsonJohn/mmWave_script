@@ -1,0 +1,13 @@
+<map id="xwr16xx/mmw/mss/mmw_mss.h" name="xwr16xx/mmw/mss/mmw_mss.h">
+<area shape="rect" id="node10" href="$mmwdemo__adcconfig_8h.html" title="API header for adc open/config functions. " alt="" coords="1413,95,1575,136"/>
+<area shape="rect" id="node13" href="$mmw__output_8h.html" title="This is the interface/message header file for the Millimeter Wave Demo. " alt="" coords="1785,95,1942,136"/>
+<area shape="rect" id="node23" href="$mmw__config_8h.html" title="This is the header file that describes configurations for the Millimeter Wave Demo. " alt="" coords="1967,95,2123,136"/>
+<area shape="rect" id="node25" href="$mmw__lvds__stream_8h.html" title="LVDS stream header file. " alt="" coords="2307,95,2483,136"/>
+<area shape="rect" id="node14" href="$sys__common_8h.html" title="This is the common header file used by the various mmWave SDK modules. " alt="" coords="1675,191,1851,218"/>
+<area shape="rect" id="node22" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/datapath/dpc/objectdetection/objdetdsp/docs/objdetdsp.tag$objectdetection_8h.html" title="ti/datapath/dpc/objectdetection\l/objdetdsp/objectdetection.h" alt="" coords="1875,184,2075,225"/>
+<area shape="rect" id="node15" href="$sys__types_8h.html" title="This is the common header file that contains types for mmwave SDK. " alt="" coords="1505,281,1664,307"/>
+<area shape="rect" id="node19" href="$sys__common__xwr16xx_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16XX device..." alt="" coords="1863,273,2029,315"/>
+<area shape="rect" id="node20" href="$sys__common__xwr16xx__mss_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16xx Master subsystem..." alt="" coords="1785,363,1950,404"/>
+<area shape="rect" id="node21" href="$sys__common__xwr16xx__dss_8h.html" title="This is the common header file used by the various mmWave SDK modules for XWR16xx DSP subsystem..." alt="" coords="1974,363,2139,404"/>
+<area shape="rect" id="node24" href="/home/gtbldadm/nightlybuilds/mmwave_sdk/ti/control/mmwave/docs/mmwave.tag$mmwave_8h.html" title="ti/control/mmwave/mmwave.h" alt="" coords="2099,191,2297,218"/>
+</map>
