@@ -6,21 +6,22 @@ Enjoy~
 Prerequisites:
 ++ OS: Windows 10 or higher;
 ++ Devices: TI IWR1642BOOST + DCA1000EVM;
-++ Device connection: Figure 19 in DCA1000EVM User Guide (./Doc/DCA1000EVM User Guide.pdf);
-++ IWR1642 Firmware: Flash the mmWave_Demo image into IWR1642 (refer to page 8-9 Section 3.2 in ./Doc/mmWave Sdk User Guide.pdf);
+++ Device connection: Figure 19 in DCA1000EVM User Guide (./Doc/DCA1000EVM_User_Guide.pdf);
+++ IWR1642 Firmware: Flash the mmWave_Demo image into IWR1642 (refer to page 8-9 Section 3.2 in ./Doc/mmWave_Sdk_User_Guide.pdf);
     (the firmware file is also provided in our repo at ./IWR1642/firmware/xwr16xx/mmw/xwr16xx_mmw_demo.bin)
 ++ IWR1642BOOST mode: Adjust the jumpers on IWR1642 board to put it into SOP mode 4 (functional mode)
-    (refer to Table 4 in ./Doc/IWR1642BOOST User Guide.pdf, note that mmWave Studio requires SOP mode 2 (debug mode) to work);
+    (refer to Table 4 in ./Doc/IWR1642BOOST_User_Guide.pdf, note that mmWave Studio requires SOP mode 2 (debug mode) to work);
 ++ MinGW tool installed (http://www.mingw.org/);
 ++ Build your own DCA1000 executable in ./DCA1000/Custom-build with MinGW tool;
 
 
 Files Description:
 ./DCA1000/Custom-build/Release: executable for DCA1000 build on your own PC;
-./Python4IWR: Python script for IWR1642BOOST;
-./Python4IWR/cfg: IWR1642BOOST configuration file in which profile.cfg is in use (the meaning of fields are in page 18-31 of ./Doc/mmWave Sdk User Guide.pdf);
-./Python4IWR/config_and_wait_key.py: Config IWR1642BOOST and wait for ENTER key to toggle sensors;
-Others: Do NOT modify or delete;
+./Python4IWR/cfg/profile.cfg: IWR1642BOOST configuration file (the meaning of fields are described in page 18-31 of ./Doc/mmWave_Sdk_User_Guide.pdf);
+./Python4IWR/config_and_wait_key.py: Config IWR1642BOOST with profile.cfg and wait for ENTER key to toggle sensors;
+./Python4IWR/start_frame.py: Demo code to start IWR1642BOOST;
+./Python4IWR/stop_frame.py: Demo code to stop IWR1642BOOST;
+Others: DO NOT modify or delete;
 
 Build ./DCA1000/Custom-build with MinGW tool:
 1. Download and install mingw-get-setup.exe from http://www.mingw.org/wiki/Getting_Started;
