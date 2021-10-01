@@ -1,4 +1,3 @@
-*.bin
 CLI_LogFile.txt
 /DCA1000/Pre-build/Release/Data/*
 /DCA1000/Custom-build/Release/Data/*
